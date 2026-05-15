@@ -1,0 +1,72 @@
+<div class="tasks-container">
+  <div class="header">
+    <div class="header-content">
+      <h1>Add Task</h1>
+      <p class="subtitle">Add task information</p>
+    </div>
+  </div>
+
+  <div class="tasks-section">
+    <div class="tasks-header">
+      <h2>Task Information</h2>
+    </div>
+
+    <form class="task-form">
+      <div class="form-row">
+        <div class="form-group">
+          <label for="title">Title *</label>
+          <input
+            type="text"
+            id="title"
+            class="form-input"
+            placeholder="Enter task title"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="category">Category *</label>
+          <select id="category" class="form-select">
+            <option value="">Select category</option>
+            <option value="design">Design</option>
+            <option value="development">Development</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="dueDate">Due Date *</label>
+          <input
+            type="text"
+            id="dueDate"
+            class="form-input"
+            placeholder="dd/mm/yyyy"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="status">Status</label>
+          <select id="status" class="form-select">
+            <option value="pending">Pending</option>
+            <option value="completed">Completed</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group full-width">
+        <label for="description">Description</label>
+        <textarea
+          id="description"
+          class="form-textarea"
+          rows="4"
+          placeholder="Enter task description (optional)"
+        ></textarea>
+      </div>
+
+      <div class="form-actions">
+        <button type="submit" class="btn-add-task" (click)="onSubmit()">Add Task</button>
+        <button type="button" class="btn-cancel" (click)="goBack()">Cancel</button>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,75 @@
+<div class="edit-container">
+  <div class="page-header">
+    <h2>Edit Task</h2>
+    <p>Update task information</p>
+  </div>
+
+  <div class="form-card">
+    <h3>Task Information</h3>
+
+    <form>
+      <div class="form-grid">
+        <!-- Title -->
+        <div class="form-group">
+          <label for="title">Title *</label>
+          <input
+            type="text"
+            id="title"
+            name="title"
+            value="Review wireframes"
+            placeholder="Task title"
+          />
+        </div>
+
+        <!-- Category -->
+        <div class="form-group">
+          <label for="category">Category *</label>
+          <select id="category" name="category">
+            <option value="design" selected>Design</option>
+            <option value="development">Development</option>
+            <option value="testing">Testing</option>
+            <option value="management">Management</option>
+          </select>
+        </div>
+
+        <!-- Due Date -->
+        <div class="form-group">
+          <label for="dueDate">Due Date *</label>
+          <input
+            type="date"
+            id="dueDate"
+            name="dueDate"
+            value="2024-01-20"
+          />
+        </div>
+
+        <!-- Status -->
+        <div class="form-group">
+          <label for="status">Status</label>
+          <select id="status" name="status">
+            <option value="pending">Pending</option>
+            <option value="in-progress">In Progress</option>
+            <option value="completed" selected>Completed</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Description -->
+      <div class="form-group full-width">
+        <label for="description">Description</label>
+        <textarea
+          id="description"
+          name="description"
+          rows="4"
+          placeholder="Task description"
+        >Review and approve the wireframes for the new project</textarea>
+      </div>
+
+      <!-- Buttons -->
+      <div class="form-actions">
+        <button type="submit" class="btn-primary">Update Task</button>
+        <button type="button" class="btn-secondary">Cancel</button>
+      </div>
+    </form>
+  </div>
+</div>

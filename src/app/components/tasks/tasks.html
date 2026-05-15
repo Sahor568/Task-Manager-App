@@ -1,0 +1,83 @@
+<div class="tasks-container">
+  <div class="header">
+    <div class="header-content">
+      <h1>All Tasks</h1>
+      <p class="subtitle">Manage your tasks efficiently</p>
+    </div>
+    <button class="btn-new-task" [routerLink]="['/tasks/new']">
+      <span class="icon">+</span>
+      New Task
+    </button>
+  </div>
+
+  <div class="search-section">
+    <div class="search-box">
+      <span class="search-icon">🔍</span>
+      <input type="text" placeholder="Search tasks...">
+    </div>
+  </div>
+
+  <div class="tasks-section">
+    <div class="tasks-header">
+      <h2>Tasks  tasks.length </h2>
+      <div class="filters">
+        <select class="filter-dropdown">
+          <option value="">Category</option>
+          <option value="design">Design</option>
+          <option value="development">Development</option>
+        </select>
+        <select class="filter-dropdown">
+          <option value="">Status</option>
+          <option value="pending">Pending</option>
+          <option value="completed">Completed</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="tasks-table">
+      <div class="table-header">
+        <div class="col col-title">Title</div>
+        <div class="col col-category">Category</div>
+        <div class="col col-date">Due Date</div>
+        <div class="col col-status">Status</div>
+        <div class="col col-actions">Actions</div>
+      </div>
+
+      <div class="table-body">
+        <div class="table-row">
+          <div class="col col-title"> task.title </div>
+          <div class="col col-category">
+            <span class="category-badge">
+              task.category
+            </span>
+          </div>
+          <div class="col col-date">task.dueDate</div>
+          <div class="col col-status">
+            <span class="status-badge">
+              task.status
+            </span>
+          </div>
+          <div class="col col-actions">
+            <button class="action-btn" title="View" [routerLink]="['/tasks/details']">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <path d="M8 3C4.5 3 1.5 5.5 0 8c1.5 2.5 4.5 5 8 5s6.5-2.5 8-5c-1.5-2.5-4.5-5-8-5z" stroke="currentColor" stroke-width="1.5"/>
+                <circle cx="8" cy="8" r="2.5" stroke="currentColor" stroke-width="1.5"/>
+              </svg>
+            </button>
+            <button class="action-btn" title="Edit" [routerLink]="['/tasks/edit']">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <path d="M11.5 1.5l3 3-9 9H2.5v-3l9-9z" stroke="currentColor" stroke-width="1.5"/>
+              </svg>
+            </button>
+             <button class="action-btn" title="Delete" (click)="DeleteTask()">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <path d="M2 4h12M5.5 4V2.5h5V4M6.5 7v5M9.5 7v5M3.5 4l.5 9.5h8l.5-9.5" stroke="currentColor" stroke-width="1.5"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

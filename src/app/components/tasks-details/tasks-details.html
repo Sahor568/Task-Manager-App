@@ -1,0 +1,66 @@
+<div class="tasks-container">
+  <!-- Header with navigation and actions -->
+  <div class="header">
+    <div class="header-content">
+      <h1>Task Details</h1>
+      <p class="subtitle">View and manage task information</p>
+    </div>
+
+    <div class="header-actions">
+      <button class="btn-back" (click)="goBack()">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+          <path d="M10 12L6 8l4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        Back
+      </button>
+
+      <button class="btn-edit" [routerLink]="['/tasks/edit']">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+          <path d="M11.5 1.5l3 3-9 9H2.5v-3l9-9z" stroke="currentColor" stroke-width="1.5"/>
+        </svg>
+        Edit
+      </button>
+
+      <button class="btn-delete" (click)="DeleteTask()">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+          <path d="M2 4h12M5.5 4V2.5h5V4M6.5 7v5M9.5 7v5M3.5 4l.5 9.5h8l.5-9.5" stroke="currentColor" stroke-width="1.5"/>
+        </svg>
+        Delete
+      </button>
+    </div>
+  </div>
+
+  <!-- Task Details Card -->
+  <div class="task-details-card">
+    <h2 class="task-title">Review wireframes</h2>
+
+    <div class="details-grid">
+      <div class="detail-item">
+        <label>Category</label>
+        <span class="category-badge" data-category="design">Design</span>
+      </div>
+
+      <div class="detail-item">
+        <label>Status</label>
+        <span class="status-badge" data-status="pending">pending</span>
+      </div>
+
+      <div class="detail-item">
+        <label>Due Date</label>
+        <span class="detail-value">2024-01-20</span>
+      </div>
+
+      <div class="detail-item">
+        <label>Created</label>
+        <span class="detail-value">2024-01-15</span>
+      </div>
+    </div>
+
+    <div class="description-section">
+      <label>Description</label>
+      <div class="description-content">
+        Review and approve the wireframes for the new project
+      </div>
+    </div>
+  </div>
+</div>
