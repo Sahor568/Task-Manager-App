@@ -1,0 +1,39 @@
+<div class="login-container">
+
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <div class="title">
+          <h1>Login</h1>
+        </div>
+        <p>Enter your credentials to access your tasks</p>
+
+        <label>Email</label>
+      <div class="input-section">
+        <input type="text" placeholder="Enter Email" formControlName="email">
+      </div>
+      <div class="error-text">
+        @if(email?.invalid && (email?.dirty || email?.touched)) {
+            <span > @if(email?.errors?.['required']) {Email is required.}
+            @if(email?.errors?.['pattern']) {Invalid email format.}
+            </span>
+        }
+      </div>
+
+        <label>Password</label>
+      <div class="input-section">
+        <input type="password" placeholder="Enter Password" formControlName="password">
+      </div>
+      <div class="error-text">
+        @if(password?.invalid && (password?.dirty || password?.touched)) {
+            <span > @if(password?.errors?.['required']) {Password is required.}
+            @if(password?.errors?.['minlength']) {Password must be at least 6 characters long.}
+            </span>
+        }
+      </div>
+
+        <button type="submit" [disabled]="loginForm.invalid">Login</button>
+
+        <div class="link-text">
+            Don't have an account? <a [routerLink]="['/register']">Register here</a>
+        </div>
+    </form>
+</div>

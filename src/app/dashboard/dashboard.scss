@@ -1,0 +1,114 @@
+.dashboard-container {
+  display: flex;
+  flex-direction: column;
+  padding-left: 256px;
+  padding-top: 58px;
+}
+
+.dashboard-header {
+  p {
+    margin-top: 5px;
+    color: #666;
+    font-size: 14px;
+  }
+}
+
+.primary-container {
+  padding-top: 25px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+
+  > div {
+    border: 1px solid #8c8c8c;
+    border-radius: 10px;
+    padding: 16px;
+    min-height: 100px;
+    transition: 0.2s ease;
+  }
+}
+
+
+.attention-needed {
+  border: 1px solid pink;
+
+  h3,
+  p {
+    color: red;
+  }
+}
+
+.empty-state {
+  padding: 30px 0;
+  text-align: center;
+  color: gray;
+}
+
+.secondary-container {
+  padding-top: 20px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.category-section{
+  border-radius:10px;
+  padding: 30px;
+  border: 1px solid #8c8c8c;
+  display: grid;
+
+  h3 {
+    margin-bottom: 10px;
+    font-weight: bold;
+  }
+
+  table {
+    border: none;
+  }
+
+  tr {
+    border-bottom: 1px solid #8c8c8c;
+  }
+
+  td{
+    border: none;
+    padding: 10px;
+    font-size: 16px;
+    color: gray;
+  };
+}
+
+.newTask-left,
+.activeCategory-left {
+  font-size: 24px;
+  font-weight: 500;
+  color: black;
+}
+
+.recent-activity{
+  display: grid;
+  border-radius:10px;
+  border: 1px solid #8c8c8c;
+}
+
+.new-tasks,
+.active-category,
+.attention-needed {
+  display: grid;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 8px;
+  padding: 10px;
+  margin-bottom: 16px;
+}
+
+
+
+.newTask-left,
+.activeCategory-left {
+  font-size: 34px;
+  font-weight: bold;
+  color: #222;
+}
+
+

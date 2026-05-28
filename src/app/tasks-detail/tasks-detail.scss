@@ -1,0 +1,80 @@
+.taskdetail-container {
+  display: flex;
+  flex-direction: column;
+  padding-left: 256px;
+  padding-top: 58px;
+}
+
+.taskdetail-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+
+  .header-left {
+    p {
+      margin-top: 5px;
+      color: #666;
+      font-size: 14px;
+    }
+  }
+
+  .btn {
+    background: #2f2f2f;
+    color: white;
+    border: 2px solid #ddd;
+    padding: 12px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: 0.2s ease;
+    gap: 16px;
+
+    &:hover {
+      background: #1f1f1f;
+    }
+  }
+
+  .btn-del {
+    background: #ca1f1f;
+    color: white;
+    border: 2px solid #ca1f1f;
+    padding: 12px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: 0.2s ease;
+    gap: 16px;
+
+    &:hover {
+      background: #a81f1f;
+    }
+  }
+}
+
+.taskdetail-body {
+  border-radius: 10px;
+  border: 1px solid gray;
+  padding: 10px;
+
+  task-title{
+    h3 {
+      weight: 600;
+      font-size: 22.31px;
+      letter-spacing: -0.6;
+      vertical-align: middle;
+       margin-left: 15px;
+   }
+  }
+}
+
+.task-body {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+
+
+
+  button {
+    text-allign: center;
+  }
+}

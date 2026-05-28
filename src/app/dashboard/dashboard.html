@@ -1,0 +1,121 @@
+<div class="dashboard-container">
+
+  <div class="dashboard-header">
+    <h2>Dashboard Overview</h2>
+    <p>Track your task management progress</p>
+  </div>
+
+  <div class="primary-container">
+    <div class="total-tasks">
+      <h3>Total Tasks</h3>
+      <div class="count">{{ tasks.length }}</div>
+      <p>All tasks in the system</p>
+    </div>
+
+    <div class="completed-tasks">
+      <h3>Completed</h3>
+      <div class="count">{{ completedTasks.length }}</div>
+      <p>Successfully finished tasks</p>
+    </div>
+
+    <div class="pending-tasks">
+      <h3>Pending</h3>
+      <div class="count">{{ pendingTasks.length }}</div>
+      <p>Tasks awaiting completion</p>
+    </div>
+
+    <div class="completionRate-tasks">
+      <h3>Completion Rate</h3>
+      <div class="count">{{ completionRate }}%</div>
+      <p>Overall progress percentage</p>
+    </div>
+
+    <div class="dueToday-tasks">
+      <h3>Due Today</h3>
+      <div class="count">{{ dueTodayTasks.length }}</div>
+      <p>Tasks due today</p>
+    </div>
+
+    <div class="overdue-tasks">
+      <h3>Overdue</h3>
+      <div class="count">{{ overdueTasks.length }}</div>
+      <p>Tasks past due date</p>
+    </div>
+  </div>
+
+  <div class="secondary-container">
+    <div class="category-section">
+      <h3>Categories</h3>
+      <table width="100%">
+        @if (categories.length > 0) {
+          @for (cat of categories; track cat.id) {
+            <tr>
+              <td width="60">
+                <p-colorpicker
+                  [(ngModel)]="cat.color"
+                  [disabled]="true">
+                </p-colorpicker>
+              </td>
+
+              <td>{{ cat.name }}</td>
+              <td align="right">
+                {{ completedCategoryTask(cat.name).length }}/{{ categoryTasks(cat.name).length }} tasks
+                <div>
+                  {{ Math.round((completedCategoryTask(cat.name).length /
+                  categoryTasks(cat.name).length * 100)) }}% complete
+                </div>
+              </td>
+            </tr>
+          }
+        } @else {
+          <tr>
+            <td colspan="3">
+              <div class="empty-state">
+                No categories found. Create a category to get started!
+              </div>
+            </td>
+          </tr>
+        }
+      </table>
+    </div>
+
+    <div class="recent-activity">
+      <h2>Recent Activity</h2>
+      <div class="new-tasks">
+        <div class="newTask-right">
+          <h3>New Tasks (7 days)</h3>
+          <p>Recently created tasks</p>
+        </div>
+
+        <div class="newTask-left">
+          {{ newTaskTasks.length }}
+        </div>
+      </div>
+
+      <div class="active-category">
+        <div class="activeCategory-right">
+          <h3>Active Categories</h3>
+          <p>Categories with tasks</p>
+        </div>
+
+        <div class="activeCategory-left">
+          {{ categories.length }}
+        </div>
+      </div>
+
+      @if(overdueTasks.length > 0) {
+        <div class="attention-needed">
+          <div class="attention-needed-right">
+            <h3>Attention Needed</h3>
+            <p>Overdue tasks require action</p>
+          </div>
+
+          <div class="attention-needed-left">
+            ⚠️
+          </div>
+        </div>
+
+      }
+    </div>
+  </div>
+</div>

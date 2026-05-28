@@ -1,0 +1,58 @@
+<div class="taskdetail-container">
+  <div class="taskdetail-header">
+    <div class="header-left">
+      <h2>Task Details</h2>
+      <p>View and manage task information</p>
+    </div>
+    <div class="header-right">
+      <button class="btn" (click)=back()>&#9664; Back</button>
+      <button class="btn"  [routerLink]="['/tasks-edit', tasks.id]">Edit</button>
+      <button class="btn-del"  (click)=deleteTask()>Delete</button>
+    </div>
+  </div>
+
+  <div class="taskdetail-body">
+    <form>
+      <div class="task-Title">
+        <h3>{{ tasks.title }}</h3>
+      </div>
+
+      <div class="task-body">
+        <div class="task-category">
+          <label>Category</label>
+          <div>
+            <button type="button" disabled>{{ tasks.category }}</button>
+          </div>
+        </div>
+
+        <div class="tasks-status">
+          <label>Status</label>
+          <div>
+            <button type="button" disabled>{{ tasks.status }}</button>
+          </div>
+        </div>
+
+        <div class="task-dueDate">
+          <label>Due Date</label>
+          <div>
+            {{ tasks.dueDate }}
+          </div>
+        </div>
+
+        <div class="task-createdAt">
+          <label>Created</label>
+          <div>
+            {{ tasks.createdAt | date:'yyyy-MM-dd' }}
+          </div>
+        </div>
+      </div>
+
+      <div class="task-Description">
+        <label>Description</label>
+        <textarea disabled style="width: 100%; height: 150px;">
+          {{ tasks.description }}
+        </textarea>
+      </div>
+    </form>
+  </div>
+</div>

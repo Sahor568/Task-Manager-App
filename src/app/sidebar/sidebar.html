@@ -1,0 +1,19 @@
+<div class="sidebar-container">
+  <h2 class="title">Task Manager</h2>
+
+  <ul class="menu">
+    <li routerLink='/dashboard' routerLinkActive="active">
+      Overview
+    </li>
+    <li routerLink='/tasks' routerLinkActive="active">
+      All Tasks
+    </li>
+    <li routerLink='/categories' routerLinkActive="active">
+      Categories
+    </li>
+  </ul>
+
+  <div class="logout">
+    <button class="btn-logout" (click)="onLogout()">Logout</button>
+  </div>
+</div>

@@ -1,0 +1,26 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.header-container {
+  display: flex;
+  flex-direction: column;
+  padding-left: 256px;
+  background-color: #ffffff;
+  border-right: 1px solid #e5e5e5;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+}
+
+.title {
+  font-size: 20px;
+  font-weight: 700;
+  color: #1a1a1a;
+  padding: 18px 16px;
+  border-bottom: 1px solid #e5e5e5;
+  letter-spacing: 0.01em;
+}
