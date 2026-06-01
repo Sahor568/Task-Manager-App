@@ -2,16 +2,8 @@ import { Component, signal } from '@angular/core';
 import {  ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { DatePipe } from '@angular/common';
+import { iTask } from '../interFace/iTask';
 
-interface Task {
-  id: number;
-  title: string;
-  category: string;
-  status: string;
-  dueDate: string;
-  createdAt: string;
-  description: string;
-}
 @Component({
   selector: 'app-tasks-detail',
   imports: [ReactiveFormsModule, RouterLink, DatePipe],
@@ -19,7 +11,7 @@ interface Task {
   styleUrl: './tasks-detail.scss',
 })
 export class TasksDetail {
-  tasks!: Task;
+  tasks!: iTask;
 
   taskId = signal('');
 

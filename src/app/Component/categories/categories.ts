@@ -10,13 +10,7 @@ import { Button } from 'primeng/button';
 import { Dialog } from 'primeng/dialog';
 import { InputText } from 'primeng/inputtext';
 import { ColorPickerModule } from 'primeng/colorpicker';
-
-interface Category {
-  id: number;
-  name: string;
-  color: string;
-  userId: number;
-}
+import { iCategory } from '../interFace/iCategory';
 
 @Component({
   selector: 'app-categories',
@@ -25,7 +19,7 @@ interface Category {
   styleUrl: './categories.scss',
 })
 export class Categories {
-  categories: Category[] = [];
+  categories: iCategory[] = [];
   isEditing = false;
   editingCategoryId: number | null = null;
   visible: boolean = false;
@@ -51,7 +45,7 @@ export class Categories {
     this.categories = categories.filter((c: any) => c.userId === userId);
   }
 
-  showDialog(category?: Category) {
+  showDialog(category?: iCategory) {
     this.isEditing = !!category;
     this.editingCategoryId = category ? category.id : null;
     this.categoryForm.reset({ name: category ? category.name : '' });
@@ -82,7 +76,7 @@ export class Categories {
     this.visible = false;
   }
 
-  EditCategory(category: Category) {
+  EditCategory(category: iCategory) {
     this.isEditing = true;
     this.editingCategoryId = category.id;
     this.categoryForm.setValue({ name: category.name, color: category.color }); // Set form values for editing

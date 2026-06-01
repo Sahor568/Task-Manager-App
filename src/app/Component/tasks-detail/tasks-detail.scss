@@ -66,15 +66,22 @@
        margin-left: 15px;
    }
   }
-}
 
-.task-body {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  .task-body {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    margin-bottom: 10px;
+  }
 
-
+  label {
+    display:block;
+    font-size: 14px;
+    color: gray;
+    margin-bottom: 10px;
+  }
 
   button {
-    text-allign: center;
+    border: none;
+    //background: #2f2f2f;
   }
 }

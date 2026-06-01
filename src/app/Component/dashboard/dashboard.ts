@@ -1,24 +1,9 @@
 import { Component } from '@angular/core';
 import { ColorPicker } from 'primeng/colorpicker';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { iCategory } from '../interFace/iCategory';
+import { iTask } from '../interFace/iTask';
 
-interface Category {
-  id: number;
-  name: string;
-  color: string;
-  userId: number;
-}
-
-interface Task {
-  id: number;
-  userId: number;
-  status: string;
-  title: string;
-  description: string;
-  dueDate: string;
-  createdAt: string;
-  category: string;
-}
 
 @Component({
   selector: 'app-dashboard',
@@ -27,8 +12,8 @@ interface Task {
   styleUrl: './dashboard.scss',
 })
 export class Dashboard {
-  tasks: Task[] = [];
-  categories: Category[] = [];
+  tasks: iTask[] = [];
+  categories: iCategory[] = [];
 
   protected readonly Math = Math;
 

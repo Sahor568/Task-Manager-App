@@ -1,20 +1,9 @@
 import { Component } from '@angular/core';
 import { RouterLink } from "@angular/router";
 import { ReactiveFormsModule } from '@angular/forms';
+import { iCategory } from '../interFace/iCategory';
+import { iTask } from '../interFace/iTask';
 
-interface Task {
-  id: number;
-  title: string;
-  category: string;
-  dueDate: string;
-  status: string;
-}
-
-interface Category {
-  id: number;
-  name: string;
-  userId: number;
-}
 
 @Component({
   selector: 'app-tasks',
@@ -23,8 +12,8 @@ interface Category {
   styleUrl: './tasks.scss',
 })
 export class Tasks {
-  tasks: Task[] = [];
-  categories: Category[] = [];
+  tasks: iTask[] = [];
+  categories: iCategory[] = [];
 
   ngOnInit(): void {
     this.loadTasks(); // Load tasks when the component initializes
@@ -82,7 +71,7 @@ export class Tasks {
 
   filterStatus(event: any): void {
     const filterStatus = event.target.value.toLowerCase();
-    this.loadTasks(); 
+    this.loadTasks();
     if (filterStatus) {
       this.tasks = this.tasks.filter((t: any) => t.status.toLowerCase() === filterStatus);
     }
