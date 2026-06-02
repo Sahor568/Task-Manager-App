@@ -1,11 +1,12 @@
 <div class="category-container">
-    <div class="page-header">
-        <div class="header-left">
-        <h2>Categories</h2>
-        <p>Manage your task categories</p>
-        </div>
-        <button class="btn-add" (click)="showDialog()">+ Add Category</button>
+  <p-toast position="top-right" />
+  <div class="page-header">
+    <div class="header-left">
+      <h2>Categories</h2>
+      <p>Manage your task categories</p>
     </div>
+    <button class="btn-add" (click)="showDialog()">+ Add Category</button>
+  </div>
 
   <div class="categories-container">
     <div class="total-task">
@@ -24,22 +25,22 @@
               <td>{{ cat.name }}</td>
               <td style="alignment-baseline: central"><p-colorpicker [(ngModel)]="cat.color" [disabled]="true"></p-colorpicker></td>
               <td>
-                <button class="icon-btn" title="Edit" (click)="EditCategory(cat)">
+                <button class="icon-btn" title="Edit" (click)="editCategory(cat)">
                   Edit
                 </button>
                 <button class="icon-btn delete" title="Delete" (click)="deleteCategory(cat.id)">
                   Delete
                 </button>
               </td>
-             </tr>
+            </tr>
           }
-          </table>
-        } @else {
-          <div class="empty-state">
-            <p>No categories found. Create a new category to get started!</p>
-          </div>
-        }
-      </div>
+        </table>
+      } @else {
+        <div class="empty-state">
+          <p>No categories found. Create a new category to get started!</p>
+        </div>
+      }
+    </div>
   </div>
 </div>
 
@@ -47,23 +48,23 @@
 <div class="card flex justify-center">
   <p-dialog [header]="isEditing ? 'Edit Category' : 'Add Category'" [modal]="true" [(visible)]="visible" [style]="{ width: '25rem' }">
     <form [formGroup]="categoryForm" (ngSubmit)="onSubmit()">
-    <span class="p-text-secondary block mb-8">Add Category for tasks.</span>
-    <br><br>
-    <div class="flex items-center gap-4 mb-4">
-      <div>
-        <label for="categoryName" class="font-semibold w-24">Category Name</label>
-        <input pInputText id="catName" class="flex-auto" autocomplete="off" formControlName="name" placeholder="Enter category name" />
+      <span class="p-text-secondary block mb-8">Add Category for tasks.</span>
+      <br><br>
+      <div class="flex items-center gap-4 mb-4">
+        <div>
+          <label for="categoryName" class="font-semibold w-24">Category Name</label>
+          <input pInputText id="catName" class="flex-auto" autocomplete="off" formControlName="name" placeholder="Enter category name" />
+        </div>
+        <div>
+          <label for="categoryColor" class="font-semibold w-24">Category Color</label>
+          <p-colorPicker formControlName="color" [style]="{'margin-left': '25px'}"></p-colorPicker>    <!--Got it from PRIMENG-->
+        </div>
       </div>
-      <div>
-        <label for="categoryColor" class="font-semibold w-24">Category Color</label>
-        <p-colorPicker formControlName="color" [style]="{'margin-left': '25px'}"></p-colorPicker>    <!--Got it from PRIMENG-->
-    </div>
-    </div>
-    <br><br>
-    <div class="flex justify-end gap-2">
-      <p-button label="Cancel" severity="secondary" (click)="visible = false" />
-      <p-button type="submit" [disabled]="categoryForm.invalid" [label]="(isEditing ? 'Update' : 'Add') + ' Category'" />
-    </div>
+      <br><br>
+      <div class="flex justify-end gap-2">
+        <p-button label="Cancel" severity="secondary" (click)="visible = false" />
+        <p-button type="submit" [disabled]="categoryForm.invalid" [label]="(isEditing ? 'Update' : 'Add') + ' Category'" />
+      </div>
     </form>
   </p-dialog>
 </div>

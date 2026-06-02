@@ -1,47 +1,47 @@
 import { Component, inject } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-login',
-  imports: [ReactiveFormsModule, RouterLink],
+  imports: [ReactiveFormsModule, RouterLink, ToastModule],
   templateUrl: './login.html',
-  styleUrls: ['./login.scss']
+  styleUrls: ['./login.scss'],
+  providers: [MessageService],
 })
 export class Login {
+  private router = inject(Router);
+  private messageService = inject(MessageService);
 
-  router = inject(Router);
-
-  loginForm= new FormGroup({
-      email: new FormControl('',[Validators.required, Validators.pattern(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)]),
-      password: new FormControl('',[Validators.required, Validators.minLength(6)]),
-  })
-
+  loginForm = new FormGroup({
+    email: new FormControl('', [
+      Validators.required,
+      Validators.pattern(/^[^\s@]+@[^\s@]+\.[^\s@]+$/),
+    ]),
+    password: new FormControl('', [Validators.required, Validators.minLength(6)]),
+  });
 
   onSubmit() {
     const formData = this.loginForm.getRawValue();
 
     const users = JSON.parse(localStorage.getItem('users') || '[]');
-    const user = users.find((u: any) => u.email === formData.email && u.password === formData.password);
+    const user = users.find(
+      (u: any) => u.email === formData.email && u.password === formData.password,
+    );
 
     if (user) {
-      alert('Login successful!');
-      console.log('Logged in user:', user);
-
-
-      // const currentUser = JSON.stringify(user.id);
-      // localStorage.setItem('currentUser', JSON.stringify(currentUser));
-
-      // localStorage.setItem('currentUserId', String(user.id));
+      this.showSuccess();
 
       localStorage.setItem('currentUser', JSON.stringify(user.id));
 
-
-      this.router.navigate(['/dashboard']);
-
-
+      setTimeout(() => {
+        this.router.navigate(['/dashboard']);
+      }, 1000);
     } else {
-      alert('Invalid email or password!');
+      // alert('Invalid email or password!');
+      this.showFailed();
     }
   }
 
@@ -51,6 +51,23 @@ export class Login {
 
   get password() {
     return this.loginForm.get('password');
+  }
+
+  showSuccess() {
+    this.messageService.add({
+      severity: 'success',
+      summary: 'Login Status',
+      detail: 'Login successfully!',
+      life: 3000,
+    });
+  }
+  showFailed() {
+    this.messageService.add({
+      severity: 'error',
+      summary: 'Login Status',
+      detail: 'Invalid email or password!',
+      life: 3000,
+    });
   }
 }
 

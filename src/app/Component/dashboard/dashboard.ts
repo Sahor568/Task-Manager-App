@@ -1,8 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ColorPicker } from 'primeng/colorpicker';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { iCategory } from '../interFace/iCategory';
-import { iTask } from '../interFace/iTask';
+import { iCategory } from '../../interFace/iCategory';
+import { iTask } from '../../interFace/iTask';
+import { authService } from '../../Service/auth.service';
+import { LoadService } from '../../Service/load.service';
 
 
 @Component({
@@ -15,29 +17,14 @@ export class Dashboard {
   tasks: iTask[] = [];
   categories: iCategory[] = [];
 
+  private authService = inject(authService);
+  private loadService = inject(LoadService);
+
   protected readonly Math = Math;
 
   ngOnInit() {
-    this.loadCategory();
-    this.loadTasks();
-    // console.log(this.getCurrentUserId);
-  }
-
-  private getCurrentUserId() {
-    const user = JSON.parse(localStorage.getItem('currentUser') || '{}');
-    return user;
-  }
-
-  private loadCategory() {
-    const userId = this.getCurrentUserId();
-    const categories = JSON.parse(localStorage.getItem('categories') || '[]');
-    this.categories = categories.filter((c: any) => c.userId === userId);
-  }
-
-  private loadTasks() {
-    const userId = this.getCurrentUserId();
-    const tasks = JSON.parse(localStorage.getItem('tasks') || '[]');
-    this.tasks = tasks.filter((c: any) => c.userId === userId);
+    this.tasks = this.loadService.loadTasks();
+    this.categories = this.loadService.loadCategories();
   }
 
   get completedTasks() {
@@ -69,22 +56,19 @@ export class Dashboard {
 
   categoryTasks(name: string) {
     // console.log('getCategoryTasks', name);
-    const app = this.tasks.filter((task) => task.category === name);
-    return app;
+    return this.tasks.filter((task) => task.category === name);
   }
 
   completedCategoryTask(name: string) {
     // console.log('getCategoryTasks', name);
-    const app = this.tasks.filter((task) => task.category === name && task.status === 'Completed');
-    return app;
+    return this.tasks.filter((task) => task.category === name && task.status === 'Completed');
   }
 
   get newTaskTasks() {
     const now = new Date();
     const sevenDaysLater = new Date();
     sevenDaysLater.setDate(now.getDate() - 7);
-    const app = this.tasks.filter((task) => new Date(task.createdAt) >= sevenDaysLater);
-    return app;
+    return this.tasks.filter((task) => new Date(task.createdAt) >= sevenDaysLater);
   }
 }
 

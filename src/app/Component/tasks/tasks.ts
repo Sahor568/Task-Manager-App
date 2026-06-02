@@ -1,57 +1,48 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterLink } from "@angular/router";
 import { ReactiveFormsModule } from '@angular/forms';
-import { iCategory } from '../interFace/iCategory';
-import { iTask } from '../interFace/iTask';
+import { iCategory } from '../../interFace/iCategory';
+import { iTask } from '../../interFace/iTask';
+import { authService} from '../../Service/auth.service';
+import { LoadService } from '../../Service/load.service';
+import { MessageService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
 
 
 @Component({
   selector: 'app-tasks',
-  imports: [RouterLink, ReactiveFormsModule],
+  imports: [RouterLink, ReactiveFormsModule, ToastModule, ReactiveFormsModule],
   templateUrl: './tasks.html',
   styleUrl: './tasks.scss',
+  providers: [MessageService],
 })
 export class Tasks {
   tasks: iTask[] = [];
   categories: iCategory[] = [];
 
+  private authService = inject(authService);
+  private loadService = inject(LoadService);
+  private messageService = inject(MessageService);
+
   ngOnInit(): void {
-    this.loadTasks(); // Load tasks when the component initializes
-    this.loadCategory(); // Load Category when the component initializes
-    console.log(this.getCurrentUserId());
-  }
-
-  private getCurrentUserId(): number {
-    const user = JSON.parse(localStorage.getItem('currentUser') || '{}');
-    return user;
-  }
-
-  private loadTasks(): void {
-    const userId = this.getCurrentUserId();
-    const tasks = JSON.parse(localStorage.getItem('tasks') || '[]');
-    this.tasks = tasks.filter((t: any) => t.userId === userId);
-    //     this.tasks = tasks.filter(
-    //      (t: any) => Number(t.userId) === userId
-    //      );
-    //     console.log("filtered tasks", this.tasks);
-  }
-
-  private loadCategory(): void {
-    const userId = this.getCurrentUserId();
-    const categories = JSON.parse(localStorage.getItem('categories') || '[]');
-    this.categories = categories.filter((c : any) => c.userId === userId);
+    this.tasks = this.loadService.loadTasks(); // Load tasks when the component initializes
+    this.categories = this.loadService.loadCategories(); // Load Category when the component initializes
+    console.log(this.authService.getCurrentUser());
   }
 
   deleteTask(taskId: number): void {
     const tasks = JSON.parse(localStorage.getItem('tasks') || '[]');
     const updatedTasks = tasks.filter((t: any) => t.id !== taskId);
     localStorage.setItem('tasks', JSON.stringify(updatedTasks));
-    this.loadTasks();
+    this.loadService.loadTasks();
+    // alert('Deleted');
+    this.showDeleted();
+    // window.location.reload();
   }
 
   onSearch(event: any): void {
     const searchTerm = event.target.value.toLowerCase();
-    this.loadTasks();
+    this.loadService.loadTasks();
     if (searchTerm) {
       this.tasks = this.tasks.filter(
         (t: any) =>
@@ -63,7 +54,7 @@ export class Tasks {
 
   filterCategory(event: any): void {
     const filterCategory = event.target.value.toLowerCase();
-    this.loadTasks();
+    this.loadService.loadTasks();
     if (filterCategory) {
       this.tasks = this.tasks.filter((t: any) => t.category.toLowerCase() === filterCategory);
     }
@@ -71,9 +62,18 @@ export class Tasks {
 
   filterStatus(event: any): void {
     const filterStatus = event.target.value.toLowerCase();
-    this.loadTasks();
+    this.loadService.loadTasks();
     if (filterStatus) {
       this.tasks = this.tasks.filter((t: any) => t.status.toLowerCase() === filterStatus);
     }
+  }
+
+  showDeleted() {
+    this.messageService.add({
+      severity: 'error',
+      summary: 'Alert',
+      detail: 'Task deleted successfully!',
+      life: 3000,
+    });
   }
 }

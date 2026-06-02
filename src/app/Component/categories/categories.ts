@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -10,13 +10,26 @@ import { Button } from 'primeng/button';
 import { Dialog } from 'primeng/dialog';
 import { InputText } from 'primeng/inputtext';
 import { ColorPickerModule } from 'primeng/colorpicker';
-import { iCategory } from '../interFace/iCategory';
+import { iCategory } from '../../interFace/iCategory';
+import { authService } from '../../Service/auth.service';
+import { LoadService } from '../../Service/load.service';
+import { MessageService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
 
 @Component({
   selector: 'app-categories',
-  imports: [FormsModule, ReactiveFormsModule, Button, Dialog, InputText, ColorPickerModule],
+  imports: [
+    FormsModule,
+    ReactiveFormsModule,
+    Button,
+    Dialog,
+    InputText,
+    ColorPickerModule,
+    ToastModule,
+  ],
   templateUrl: './categories.html',
   styleUrl: './categories.scss',
+  providers: [MessageService],
 })
 export class Categories {
   categories: iCategory[] = [];
@@ -25,25 +38,24 @@ export class Categories {
   visible: boolean = false;
   color: ColorPickerModule | undefined;
 
+  private authService = inject(authService);
+  private loadService = inject(LoadService);
+  private messageService = inject(MessageService);
+
   categoryForm = new FormGroup({
     name: new FormControl('', [Validators.required, Validators.minLength(3)]),
     color: new FormControl(''),
   });
 
   ngOnInit(): void {
-    this.loadCategories(); // Will load categories when the component initializes
+    this.categories = this.loadService.loadCategories(); // Will load categories when the component initializes
   }
 
-  private getCurrentUserId(): number {
-    const user = JSON.parse(localStorage.getItem('currentUser') || '{}');
-    return user;
-  }
-
-  private loadCategories(): void {
-    const userId = this.getCurrentUserId();
-    const categories = JSON.parse(localStorage.getItem('categories') || '[]');
-    this.categories = categories.filter((c: any) => c.userId === userId);
-  }
+  // private loadCategories(): void {
+  //   const userId = this.authService.getCurrentUser();
+  //   const categories = JSON.parse(localStorage.getItem('categories') || '[]');
+  //   this.categories = categories.filter((c: any) => c.userId === userId);
+  // }
 
   showDialog(category?: iCategory) {
     this.isEditing = !!category;
@@ -56,7 +68,7 @@ export class Categories {
     // if (this.categoryForm.invalid) return;
 
     // const { name, color } = this.categoryForm.value;
-    const userId = this.getCurrentUserId();
+    const userId = this.authService.getCurrentUser();
     const categories = JSON.parse(localStorage.getItem('categories') || '[]');
     const nextId = categories.length ? Math.max(...categories.map((c: any) => c.id)) + 1 : 1;
     if (this.isEditing && this.editingCategoryId !== null) {
@@ -64,19 +76,24 @@ export class Categories {
       if (index !== -1) {
         // If category exists, update it
         categories[index] = { ...categories[index], ...this.categoryForm.value };
+        this.showEdited();
       }
     } else {
       // If adding a new category
       const newCategory = { id: nextId, ...this.categoryForm.value, userId };
       categories.push(newCategory);
+      this.showSuccess();
+      setTimeout(() => {
+        window.location.reload();
+      }, 2000);
     }
 
     localStorage.setItem('categories', JSON.stringify(categories));
-    this.loadCategories(); // Refresh the list after adding/updating
+    this.loadService.loadCategories(); // Refresh the list after adding/updating
     this.visible = false;
   }
 
-  EditCategory(category: iCategory) {
+  editCategory(category: iCategory) {
     this.isEditing = true;
     this.editingCategoryId = category.id;
     this.categoryForm.setValue({ name: category.name, color: category.color }); // Set form values for editing
@@ -87,6 +104,38 @@ export class Categories {
     const categories = JSON.parse(localStorage.getItem('categories') || '[]');
     const updatedCategories = categories.filter((c: any) => c.id !== id);
     localStorage.setItem('categories', JSON.stringify(updatedCategories));
-    this.loadCategories(); // Refresh the list after deletion
+    this.loadService.loadCategories(); // Refresh the list after deletion
+    this.showDeleted();
+    setTimeout(() => {
+      window.location.reload();
+    }, 2000);
+
+  }
+
+  showSuccess() {
+    this.messageService.add({
+      severity: 'success',
+      summary: 'Category Status',
+      detail: 'Category Added Successfully!',
+      life: 3000,
+    });
+  }
+
+  showEdited() {
+    this.messageService.add({
+      severity: 'info',
+      summary: 'Category Status',
+      detail: 'Category edited successfully!',
+      life: 3000,
+    });
+  }
+
+  showDeleted() {
+    this.messageService.add({
+      severity: 'error',
+      summary: 'Alert',
+      detail: 'Category deleted successfully!',
+      life: 3000,
+    });
   }
 }

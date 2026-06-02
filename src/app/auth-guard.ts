@@ -1,14 +1,24 @@
 import { CanActivateFn } from '@angular/router';
 
 export const authGuard: CanActivateFn = (route, state) => {
-  if (localStorage.getItem('currentUser') !== null) {
-    return true;
-    alert('You loggedIn to this page!');
-    window.location.href = '/dashboard';
+  if (localStorage.getItem('currentUser') === null) {
+    // alert('You must be logged in to access this page!');
+    window.location.href = '/login';
+    return false;
   }
   else {
-    alert('You must be logged in to access this page!');
-    window.location.href = '/login';
+    return true;
   }
-  return false;
+
+
 };
+export const logGuard: CanActivateFn = (route, state) => {
+  if (localStorage.getItem('currentUser') !== null) {
+    // alert('You are already logged in to access this page!');
+    window.location.href = '/dashboard';
+    return false;
+  } else {
+    return true;
+  }
+}
+

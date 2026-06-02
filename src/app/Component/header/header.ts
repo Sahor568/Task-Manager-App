@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { authService } from '../../Service/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -7,15 +8,12 @@ import { Component } from '@angular/core';
   styleUrl: './header.scss',
 })
 export class Header {
+  private authService = inject(authService);
+
   getUserName(): string {
-    const userId = Number(localStorage.getItem('currentUser'));
+    const userId = this.authService.getCurrentUser();
     const users: any[] = JSON.parse(localStorage.getItem('users') || '[]'); // Get the list of users from localStorage
     const user = users.find((u: any) => u.id === userId); // Find the user with the matching ID
     return user?.name || 'Guest';
-  }
-
-  logout(): void {
-    localStorage.removeItem('currentUser');
-    window.location.href = '/login';
   }
 }

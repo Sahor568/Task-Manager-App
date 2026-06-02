@@ -55,10 +55,11 @@
         }
       </div>
 
-        <button type="submit" [disabled]="registerForm.invalid">Register</button>
+      <p-toast position="top-right" />
+      <button type="submit" [disabled]="registerForm.invalid">Register</button>
 
-        <div class="link-text">
-            Already have an account? <a [routerLink]="['/login']">Login here</a>
-        </div>
+      <div class="link-text">
+        Already have an account? <a [routerLink]="['/login']">Login here</a>
+      </div>
     </form>
 </div>
