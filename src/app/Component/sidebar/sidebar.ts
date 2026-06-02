@@ -8,7 +8,7 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
   styleUrl: './sidebar.scss',
 })
 export class Sidebar {
-  onLogout() {
+  protected onLogout() {
     localStorage.removeItem('currentUser');
     window.location.href = '/login';
   }

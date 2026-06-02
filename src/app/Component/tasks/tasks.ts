@@ -27,7 +27,7 @@ export class Tasks {
     this.categories = this.loadService.loadCategories(); // Load Category when the component initializes
   }
 
-  deleteTask(taskId: number): void {
+  protected deleteTask(taskId: number): void {
     const tasks = JSON.parse(localStorage.getItem('tasks') || '[]');
     const updatedTasks = tasks.filter((t: any) => t.id !== taskId);
     localStorage.setItem('tasks', JSON.stringify(updatedTasks));
@@ -37,20 +37,20 @@ export class Tasks {
     this.tasks = updatedTasks;
   }
 
-  onSearch(event: any): void {
+  protected onSearch(event: any): void {
     const searchTerm = event.target.value.toLowerCase();
     this.tasks = this.loadService.loadTasks();
       this.tasks = this.tasks.filter((t: any) => t.title.toLowerCase().includes(searchTerm) );
 
   }
 
-  filterCategory(event: any): void {
+  protected filterCategory(event: any): void {
     const filterCategory = event.target.value.toLowerCase();
     this.tasks = this.loadService.loadTasks();
     this.tasks = this.tasks.filter((t: any) => t.category.toLowerCase().includes(filterCategory));
   }
 
-  filterStatus(event: any): void {
+  protected filterStatus(event: any): void {
     const filterStatus = event.target.value.toLowerCase();
     this.tasks = this.loadService.loadTasks();
     this.tasks = this.tasks.filter((t: any) => t.status.toLowerCase().includes(filterStatus));

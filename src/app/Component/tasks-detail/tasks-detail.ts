@@ -23,7 +23,7 @@ export class TasksDetail {
     this.loadTasks();
   }
 
-  loadTasks() {
+  protected loadTasks() {
     // this.route.params.subscribe((params) => {
     //   this.taskId.set(params['id']);
     // });
@@ -36,7 +36,7 @@ export class TasksDetail {
     this.tasks = tasks.find((t: any) => t.id == taskId);
   }
 
-  deleteTask() {
+  protected deleteTask() {
     const tasks = JSON.parse(localStorage.getItem('tasks') || '[]');
     const updatedTasks = tasks.filter((t: any) => t.id != this.tasks.id);
     localStorage.setItem('tasks', JSON.stringify(updatedTasks));
@@ -44,7 +44,7 @@ export class TasksDetail {
     this.back();
   }
 
-  back() {
+  protected back() {
     window.history.back();
   }
 }

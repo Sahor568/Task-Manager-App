@@ -24,7 +24,6 @@ export class Dashboard {
   // ];
   // home: MenuItem = { icon: 'pi pi-home', routerLink: '/' };
 
-
   tasks: iTask[] = [];
   categories: iCategory[] = [];
 
@@ -38,15 +37,15 @@ export class Dashboard {
     this.categories = this.loadService.loadCategories();
   }
 
-  get completedTasks() {
+  protected get completedTasks() {
     return this.tasks.filter((task) => task.status === 'Completed');
   }
 
-  get pendingTasks() {
+  protected get pendingTasks() {
     return this.tasks.filter((task) => task.status === 'Pending');
   }
 
-  get completionRate() {
+  protected get completionRate() {
     if (this.tasks.length === 0) {
       return 0;
     }
@@ -54,28 +53,28 @@ export class Dashboard {
     return Math.round((completedCount / this.tasks.length) * 100);
   }
 
-  get dueTodayTasks() {
+  protected get dueTodayTasks() {
     const today = new Date().toISOString().split('T')[0];
     console.log(today);
     return this.tasks.filter((task) => task.dueDate === today);
   }
 
-  get overdueTasks() {
+  protected get overdueTasks() {
     const today = new Date().toISOString().split('T')[0];
     return this.tasks.filter((task) => task.dueDate < today && task.status !== 'Completed');
   }
 
-  categoryTasks(name: string) {
+  protected categoryTasks(name: string) {
     // console.log('getCategoryTasks', name);
     return this.tasks.filter((task) => task.category === name);
   }
 
-  completedCategoryTask(name: string) {
+  protected completedCategoryTask(name: string) {
     // console.log('getCategoryTasks', name);
     return this.tasks.filter((task) => task.category === name && task.status === 'Completed');
   }
 
-  get newTaskTasks() {
+  protected get newTaskTasks() {
     const now = new Date();
     const sevenDaysLater = new Date();
     sevenDaysLater.setDate(now.getDate() - 7);

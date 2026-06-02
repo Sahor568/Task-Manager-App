@@ -59,7 +59,7 @@ export class TaskFormComponent {
     this.categories = allCategories.filter((c) => c.userId === userId);
   }
 
-  onSubmit(): void {
+  protected onSubmit(): void {
     const formData = this.taskForm.value as {
       title: string;
       category: string;
@@ -117,7 +117,7 @@ export class TaskFormComponent {
     // window.location.href = '/tasks';
   }
 
-  onCancel(): void {
+  protected onCancel(): void {
     this.toastService.showToast('error', 'Task Status', 'You cancelled the task!');
       window.history.back();
   }

@@ -23,7 +23,7 @@ export class Register {
     name: new FormControl('', [Validators.required, Validators.minLength(3)]),
   });
 
-  onSubmit() {
+  protected onSubmit() {
     // if (this.registerForm.valid) {
     //   alert(JSON.stringify(this.registerForm.value));
     //   console.log(this.registerForm.value);
@@ -74,19 +74,19 @@ export class Register {
     this.toastService.showToast('success', 'Register Status', 'Register successfully!');
       this.router.navigate(['/login']);
   }
-  get email() {
+  protected get email() {
     return this.registerForm.get('email');
   }
 
-  get password() {
+  protected get password() {
     return this.registerForm.get('password');
   }
 
-  get confirmPassword() {
+  protected get confirmPassword() {
     return this.registerForm.get('confirmPassword');
   }
 
-  get name() {
+  protected get name() {
     return this.registerForm.get('name');
   }
 }

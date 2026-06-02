@@ -55,14 +55,14 @@ export class Categories {
   //   this.categories = categories.filter((c: any) => c.userId === userId);
   // }
 
-  showDialog(category?: iCategory) {
+  protected showDialog(category?: iCategory) {
     this.isEditing = !!category;
     this.editingCategoryId = category ? category.id : null;
     this.categoryForm.reset({ name: category ? category.name : '' });
     this.visible = true;
   }
 
-  onSubmit() {
+  protected onSubmit() {
     // if (this.categoryForm.invalid) return;
 
     // const { name, color } = this.categoryForm.value;
@@ -90,14 +90,14 @@ export class Categories {
     this.visible = false;
   }
 
-  editCategory(category: iCategory) {
+  protected editCategory(category: iCategory) {
     this.isEditing = true;
     this.editingCategoryId = category.id;
     this.categoryForm.setValue({ name: category.name, color: category.color }); // Set form values for editing
     this.visible = true;
   }
 
-  deleteCategory(id: number): void {
+  protected deleteCategory(id: number): void {
     const categories = JSON.parse(localStorage.getItem('categories') || '[]');
     const updatedCategories = categories.filter((c: any) => c.id !== id);
     localStorage.setItem('categories', JSON.stringify(updatedCategories));

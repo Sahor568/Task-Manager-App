@@ -22,7 +22,7 @@ export class Login {
     password: new FormControl('', [Validators.required, Validators.minLength(6)]),
   });
 
-  onSubmit() {
+  protected onSubmit() {
     const formData = this.loginForm.getRawValue();
 
     const users = JSON.parse(localStorage.getItem('users') || '[]');
@@ -42,11 +42,11 @@ export class Login {
     }
   }
 
-  get email() {
+  protected get email() {
     return this.loginForm.get('email');
   }
 
-  get password() {
+  protected get password() {
     return this.loginForm.get('password');
   }
 }
