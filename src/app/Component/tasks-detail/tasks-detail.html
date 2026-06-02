@@ -7,7 +7,6 @@
     <div class="header-right">
       <button class="btn" (click)=back()>&#9664; Back</button>
       <button class="btn"  [routerLink]="['/tasks-edit', tasks.id]">Edit</button>
-      <p-toast position="top-right" />
       <button class="btn-del"  (click)=deleteTask()>Delete</button>
     </div>
   </div>

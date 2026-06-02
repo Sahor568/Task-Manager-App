@@ -1,19 +1,17 @@
 import { Component, inject } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
-import { ToastModule } from 'primeng/toast';
-import { MessageService } from 'primeng/api';
+import { ToastService } from '../../common/service/toast.service';
 
 @Component({
   selector: 'app-register',
-  imports: [ReactiveFormsModule, RouterLink, ToastModule],
+  imports: [ReactiveFormsModule, RouterLink],
   templateUrl: './register.html',
   styleUrl: './register.scss',
-  providers: [MessageService],
 })
 export class Register {
   private router = inject(Router);
-  private messageService = inject(MessageService);
+  private toastService = inject(ToastService);
 
   registerForm = new FormGroup({
     email: new FormControl('', [
@@ -44,7 +42,7 @@ export class Register {
 
     if (formData.password !== formData.confirmPassword) {
       // alert("Passwords don't match!");
-      this.showPassMatch();
+      this.toastService.showToast('info', 'Alert', "Passwords don't match!");
       return;
     }
 
@@ -52,7 +50,7 @@ export class Register {
 
     if (users.find((u: any) => u.email === formData.email)) {
       // alert('Email already registered!');
-      this.showEmailExist();
+      this.toastService.showToast('info', 'Alert', 'Email already registered!');
       return;
     }
     // let app= users.map((u: any) => u.email === formData.email);
@@ -73,11 +71,8 @@ export class Register {
     users.push(newUser);
     localStorage.setItem('users', JSON.stringify(users));
 
-    this.showSuccess();
-    setTimeout(() => {
+    this.toastService.showToast('success', 'Register Status', 'Register successfully!');
       this.router.navigate(['/login']);
-    }, 2000);
-
   }
   get email() {
     return this.registerForm.get('email');
@@ -93,30 +88,5 @@ export class Register {
 
   get name() {
     return this.registerForm.get('name');
-  }
-
-  showSuccess() {
-    this.messageService.add({
-      severity: 'success',
-      summary: 'Register Status',
-      detail: 'Register successfully!',
-      life: 3000,
-    });
-  }
-  showPassMatch() {
-    this.messageService.add({
-      severity: 'info',
-      summary: 'Alert',
-      detail: "Passwords don't match!",
-      life: 3000,
-    });
-  }
-  showEmailExist() {
-    this.messageService.add({
-      severity: 'info',
-      summary: 'Alert',
-      detail: "Email already registered!",
-      life: 3000,
-    });
   }
 }

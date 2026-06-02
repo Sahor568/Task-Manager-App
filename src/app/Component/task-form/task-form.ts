@@ -1,18 +1,16 @@
 import { Component, inject } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { iCategory } from '../../interFace/iCategory';
-import { iTask } from '../../interFace/iTask';
-import { authService } from '../../Service/auth.service';
-import { MessageService } from 'primeng/api';
-import { ToastModule } from 'primeng/toast';
+import { iCategory } from '../../common/interface/iCategory';
+import { iTask } from '../../common/interface/iTask';
+import { AuthService } from '../../common/service/auth.service';
+import { ToastService } from '../../common/service/toast.service';
 
 @Component({
   selector: 'app-tasks-form',
-  imports: [ReactiveFormsModule, ToastModule],
+  imports: [ReactiveFormsModule],
   templateUrl: './task-form.html',
   styleUrl: './task-form.scss',
-  providers: [MessageService],
 })
 
 export class TaskFormComponent {
@@ -21,10 +19,10 @@ export class TaskFormComponent {
   task!: iTask;
   categories: iCategory[] = [];
 
-  private authService = inject(authService);
+  private authService = inject(AuthService);
   private route = inject(ActivatedRoute);
   private router = inject(Router);
-  private messageService = inject(MessageService);
+  private toastService = inject(ToastService);
 
   taskForm = new FormGroup({
     title: new FormControl('', Validators.required),
@@ -56,7 +54,7 @@ export class TaskFormComponent {
   }
 
   private loadCategories(): void {
-    const userId = this.authService.getCurrentUser();
+    const userId = this.authService.getCurrentUserId();
     const allCategories: iCategory[] = JSON.parse(localStorage.getItem('categories') || '[]');
     this.categories = allCategories.filter((c) => c.userId === userId);
   }
@@ -86,17 +84,15 @@ export class TaskFormComponent {
   }): void {
     const tasks = JSON.parse(localStorage.getItem('tasks') || '[]');
     const nextId = tasks.length ? Math.max(...tasks.map((t: any) => t.id)) + 1 : 1;
-    const userId = this.authService.getCurrentUser();
+    const userId = this.authService.getCurrentUserId();
     const createdDate = new Date().toISOString().split('T')[0];
     const newTask = { id: nextId, userId, ...formData, createdAt: createdDate };
     tasks.push(newTask);
     localStorage.setItem('tasks', JSON.stringify(tasks));
 
     // alert('Task created successfully!');
-    this.showSuccess();
-    setTimeout(() => {
-      this.router.navigate(['/tasks']);
-    }, 2000);
+    this.toastService.showToast('success', 'Task Added Successfully!', 'Task Added Successfully!');
+    this.router.navigate(['/tasks']);
     // window.location.href = '/tasks';
   }
 
@@ -116,46 +112,14 @@ export class TaskFormComponent {
       return t;
     });
     localStorage.setItem('tasks', JSON.stringify(updated));
-    this.showEdited();
-    setTimeout(() => {
+    this.toastService.showToast('info', 'Task Status', 'Task edited successfully!');
       this.router.navigate(['/tasks']);
-    }, 2000);
     // window.location.href = '/tasks';
   }
 
   onCancel(): void {
-    this.showCancelled();
-    setTimeout(() => {
+    this.toastService.showToast('error', 'Task Status', 'You cancelled the task!');
       window.history.back();
-    }, 2000);
   }
-
-  showSuccess() {
-    this.messageService.add({
-      severity: 'success',
-      summary: 'Task Status',
-      detail: 'Task Added Successfully!',
-      life: 3000,
-    });
-  }
-
-  showCancelled() {
-    this.messageService.add({
-      severity: 'error',
-      summary: 'Task Status',
-      detail: 'You cancelled the task!',
-      life: 3000,
-    });
-  }
-
-  showEdited() {
-    this.messageService.add({
-      severity: 'info',
-      summary: 'Task Status',
-      detail: 'Task edited successfully!',
-      life: 3000,
-    });
-  }
-
 
 }

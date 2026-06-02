@@ -20,21 +20,153 @@
   gap: 16px;
 
   > div {
-    border: 1px solid #8c8c8c;
+    border: 1px solid #ddd;
     border-radius: 10px;
     padding: 16px;
     min-height: 100px;
     transition: 0.2s ease;
+
+    h3 {
+      font-size: 13.67px;
+      line-height: 20px;
+      font-weight: bold;
+    }
+
+    .count {
+      font-size: 38px;
+      font-weight: bold;
+    }
+
+    p {
+      color: gray;
+      font-size: 11.81px;
+    }
   }
 }
 
 
+.completed-tasks .count {
+  color: #16A34A;
+}
+
+.pending-tasks .count {
+  color: #2563EB;
+}
+
+.completionRate-tasks .count {
+  color: #9333EA;
+}
+
+.dueToday-tasks .count {
+  color: #EA580C;
+}
+
+.overdue-tasks .count {
+  color: #DC2626;
+}
+
+.secondary-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+  margin-top: 10px;
+}
+
+.category-section {
+  border-radius: 10px;
+  padding: 24px;
+  border: 1px solid #ddd;
+
+  h2 {
+    margin-bottom: 10px;
+    font-size: 22.31px;
+    font-weight: 700;
+  }
+
+  table {
+    border-collapse: collapse;
+    border: none;
+
+    tr {
+      border-bottom: 1px solid white;
+    }
+
+    td {
+      border: none;
+      padding: 14px 10px;
+      font-size: 15px;
+      color: gray;
+    }
+  }
+}
+
+.recent-activity {
+  border-radius: 10px;
+  padding: 24px;
+  border: 1px solid #ddd;
+
+  h2 {
+    margin-bottom: 10px;
+    font-size: 22.31px;
+  }
+}
+
+.new-tasks,
+.active-category,
+.attention-needed {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 8px;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ddd;
+  background: rgb(188 188 188 / 0.16);
+}
+
+.attention-needed {
+  background: rgb(255 223 223 / 0.16);
+}
+
+.newTask-left,
+.activeCategory-left,
+.attention-needed-left {
+  h3 {
+    margin-bottom: 4px;
+    font-size: 15.5px;
+    font-weight: 400;
+    line-height: 16px;
+  }
+
+  p {
+    color: #777;
+    font-size: 13.56px;
+    line-height: 14px;
+  }
+}
+
+.newTask-right,
+.activeCategory-right {
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 28px;
+}
+
 .attention-needed {
   border: 1px solid pink;
 
-  h3,
+  h3{
+    font-weight: 400;
+    font-size: 15.63px;
+    line-height: 24px;
+    color: #991B1B;
+  }
+
   p {
     color: red;
+    font-weight: 400;
+    font-size: 13.56px;
+    line-height: 20px;
   }
 }
 
@@ -43,72 +175,3 @@
   text-align: center;
   color: gray;
 }
-
-.secondary-container {
-  padding-top: 20px;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 20px;
-}
-
-.category-section{
-  border-radius:10px;
-  padding: 30px;
-  border: 1px solid #8c8c8c;
-  display: grid;
-
-  h3 {
-    margin-bottom: 10px;
-    font-weight: bold;
-  }
-
-  table {
-    border: none;
-  }
-
-  tr {
-    border-bottom: 1px solid #8c8c8c;
-  }
-
-  td{
-    border: none;
-    padding: 10px;
-    font-size: 16px;
-    color: gray;
-  };
-}
-
-.newTask-left,
-.activeCategory-left {
-  font-size: 24px;
-  font-weight: 500;
-  color: black;
-}
-
-.recent-activity{
-  display: grid;
-  border-radius:10px;
-  border: 1px solid #8c8c8c;
-}
-
-.new-tasks,
-.active-category,
-.attention-needed {
-  display: grid;
-  justify-content: space-between;
-  align-items: center;
-  border-radius: 8px;
-  padding: 10px;
-  margin-bottom: 16px;
-}
-
-
-
-.newTask-left,
-.activeCategory-left {
-  font-size: 34px;
-  font-weight: bold;
-  color: #222;
-}
-
-

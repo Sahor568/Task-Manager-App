@@ -10,11 +10,10 @@ import { Button } from 'primeng/button';
 import { Dialog } from 'primeng/dialog';
 import { InputText } from 'primeng/inputtext';
 import { ColorPickerModule } from 'primeng/colorpicker';
-import { iCategory } from '../../interFace/iCategory';
-import { authService } from '../../Service/auth.service';
-import { LoadService } from '../../Service/load.service';
-import { MessageService } from 'primeng/api';
-import { ToastModule } from 'primeng/toast';
+import { iCategory } from '../../common/interface/iCategory';
+import { AuthService } from '../../common/service/auth.service';
+import { LoadService } from '../../common/service/load.service';
+import { ToastService } from '../../common/service/toast.service';
 
 @Component({
   selector: 'app-categories',
@@ -25,11 +24,10 @@ import { ToastModule } from 'primeng/toast';
     Dialog,
     InputText,
     ColorPickerModule,
-    ToastModule,
   ],
   templateUrl: './categories.html',
   styleUrl: './categories.scss',
-  providers: [MessageService],
+  providers: [],
 })
 export class Categories {
   categories: iCategory[] = [];
@@ -38,9 +36,9 @@ export class Categories {
   visible: boolean = false;
   color: ColorPickerModule | undefined;
 
-  private authService = inject(authService);
+  private authService = inject(AuthService);
   private loadService = inject(LoadService);
-  private messageService = inject(MessageService);
+  private toastService = inject(ToastService);
 
   categoryForm = new FormGroup({
     name: new FormControl('', [Validators.required, Validators.minLength(3)]),
@@ -68,7 +66,7 @@ export class Categories {
     // if (this.categoryForm.invalid) return;
 
     // const { name, color } = this.categoryForm.value;
-    const userId = this.authService.getCurrentUser();
+    const userId = this.authService.getCurrentUserId();
     const categories = JSON.parse(localStorage.getItem('categories') || '[]');
     const nextId = categories.length ? Math.max(...categories.map((c: any) => c.id)) + 1 : 1;
     if (this.isEditing && this.editingCategoryId !== null) {
@@ -76,16 +74,15 @@ export class Categories {
       if (index !== -1) {
         // If category exists, update it
         categories[index] = { ...categories[index], ...this.categoryForm.value };
-        this.showEdited();
+        this.toastService.showToast('info', 'Category Status', 'Category edited successfully!');
+        this.categories = categories;
       }
     } else {
       // If adding a new category
       const newCategory = { id: nextId, ...this.categoryForm.value, userId };
       categories.push(newCategory);
-      this.showSuccess();
-      setTimeout(() => {
-        window.location.reload();
-      }, 2000);
+      this.toastService.showToast('success', 'Category Status', 'Category Added Successfully!');
+      this.categories = categories;
     }
 
     localStorage.setItem('categories', JSON.stringify(categories));
@@ -105,37 +102,8 @@ export class Categories {
     const updatedCategories = categories.filter((c: any) => c.id !== id);
     localStorage.setItem('categories', JSON.stringify(updatedCategories));
     this.loadService.loadCategories(); // Refresh the list after deletion
-    this.showDeleted();
-    setTimeout(() => {
-      window.location.reload();
-    }, 2000);
+    this.toastService.showToast('error', 'Alert', 'Category deleted successfully!');
 
-  }
-
-  showSuccess() {
-    this.messageService.add({
-      severity: 'success',
-      summary: 'Category Status',
-      detail: 'Category Added Successfully!',
-      life: 3000,
-    });
-  }
-
-  showEdited() {
-    this.messageService.add({
-      severity: 'info',
-      summary: 'Category Status',
-      detail: 'Category edited successfully!',
-      life: 3000,
-    });
-  }
-
-  showDeleted() {
-    this.messageService.add({
-      severity: 'error',
-      summary: 'Alert',
-      detail: 'Category deleted successfully!',
-      life: 3000,
-    });
+    this.categories = updatedCategories;
   }
 }

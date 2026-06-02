@@ -118,10 +118,4 @@ button[type="submit"][disabled] {
   text-decoration: underline;
 }
 
-::ng-deep .p-toast-message-success .p-toast-detail {
-  color: black !important;
-}
-::ng-deep .p-toast-message-error .p-toast-detail {
-  color: black !important;
-}
 

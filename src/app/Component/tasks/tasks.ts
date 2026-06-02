@@ -1,33 +1,30 @@
 import { Component, inject } from '@angular/core';
 import { RouterLink } from "@angular/router";
 import { ReactiveFormsModule } from '@angular/forms';
-import { iCategory } from '../../interFace/iCategory';
-import { iTask } from '../../interFace/iTask';
-import { authService} from '../../Service/auth.service';
-import { LoadService } from '../../Service/load.service';
-import { MessageService } from 'primeng/api';
-import { ToastModule } from 'primeng/toast';
+import { iCategory } from '../../common/interface/iCategory';
+import { iTask } from '../../common/interface/iTask';
+import { AuthService} from '../../common/service/auth.service';
+import { LoadService } from '../../common/service/load.service';
+import { ToastService } from '../../common/service/toast.service';
 
 
 @Component({
   selector: 'app-tasks',
-  imports: [RouterLink, ReactiveFormsModule, ToastModule, ReactiveFormsModule],
+  imports: [RouterLink, ReactiveFormsModule, ReactiveFormsModule],
   templateUrl: './tasks.html',
   styleUrl: './tasks.scss',
-  providers: [MessageService],
 })
 export class Tasks {
   tasks: iTask[] = [];
   categories: iCategory[] = [];
 
-  private authService = inject(authService);
+  private authService = inject(AuthService);
   private loadService = inject(LoadService);
-  private messageService = inject(MessageService);
+  private toastService = inject(ToastService);
 
   ngOnInit(): void {
     this.tasks = this.loadService.loadTasks(); // Load tasks when the component initializes
     this.categories = this.loadService.loadCategories(); // Load Category when the component initializes
-    console.log(this.authService.getCurrentUser());
   }
 
   deleteTask(taskId: number): void {
@@ -36,44 +33,26 @@ export class Tasks {
     localStorage.setItem('tasks', JSON.stringify(updatedTasks));
     this.loadService.loadTasks();
     // alert('Deleted');
-    this.showDeleted();
-    // window.location.reload();
+    this.toastService.showToast('error', 'Alert', 'Task deleted successfully!');
+    this.tasks = updatedTasks;
   }
 
   onSearch(event: any): void {
     const searchTerm = event.target.value.toLowerCase();
-    this.loadService.loadTasks();
-    if (searchTerm) {
-      this.tasks = this.tasks.filter(
-        (t: any) =>
-          t.title.toLowerCase().includes(searchTerm) ||
-          t.category.toLowerCase().includes(searchTerm),
-      );
-    }
+    this.tasks = this.loadService.loadTasks();
+      this.tasks = this.tasks.filter((t: any) => t.title.toLowerCase().includes(searchTerm) );
+
   }
 
   filterCategory(event: any): void {
     const filterCategory = event.target.value.toLowerCase();
-    this.loadService.loadTasks();
-    if (filterCategory) {
-      this.tasks = this.tasks.filter((t: any) => t.category.toLowerCase() === filterCategory);
-    }
+    this.tasks = this.loadService.loadTasks();
+    this.tasks = this.tasks.filter((t: any) => t.category.toLowerCase().includes(filterCategory));
   }
 
   filterStatus(event: any): void {
     const filterStatus = event.target.value.toLowerCase();
-    this.loadService.loadTasks();
-    if (filterStatus) {
-      this.tasks = this.tasks.filter((t: any) => t.status.toLowerCase() === filterStatus);
-    }
-  }
-
-  showDeleted() {
-    this.messageService.add({
-      severity: 'error',
-      summary: 'Alert',
-      detail: 'Task deleted successfully!',
-      life: 3000,
-    });
+    this.tasks = this.loadService.loadTasks();
+    this.tasks = this.tasks.filter((t: any) => t.status.toLowerCase().includes(filterStatus));
   }
 }

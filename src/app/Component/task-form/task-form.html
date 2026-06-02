@@ -47,7 +47,6 @@
         <textarea placeholder="Enter task description (optional)" formControlName="description"></textarea>
       </div>
 
-      <p-toast position="top-right" />
       <div class="form-actions">
         <button class="btn-submit" type="submit" [disabled]="taskForm.invalid">{{ isEditMode ? 'Edit' : 'Add' }} Task</button>
         <button class="btn-cancel" type="button" (click)="onCancel()">Cancel</button>

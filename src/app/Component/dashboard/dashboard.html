@@ -1,5 +1,12 @@
 <div class="dashboard-container">
 
+<!--  PrimeNg BreadCrumb-->
+
+<!--  <div class="card flex justify-center">-->
+<!--    <p-breadcrumb [home]="home" [model]="items" />-->
+<!--  </div>-->
+
+
   <div class="dashboard-header">
     <h2>Dashboard Overview</h2>
     <p>Track your task management progress</p>
@@ -45,7 +52,7 @@
 
   <div class="secondary-container">
     <div class="category-section">
-      <h3>Categories</h3>
+      <h2>Categories</h2>
       <table width="100%">
         @if (categories.length > 0) {
           @for (cat of categories; track cat.id) {
@@ -82,39 +89,38 @@
     <div class="recent-activity">
       <h2>Recent Activity</h2>
       <div class="new-tasks">
-        <div class="newTask-right">
+        <div class="newTask-left">
           <h3>New Tasks (7 days)</h3>
           <p>Recently created tasks</p>
         </div>
 
-        <div class="newTask-left">
+        <div class="newTask-right">
           {{ newTaskTasks.length }}
         </div>
       </div>
 
       <div class="active-category">
-        <div class="activeCategory-right">
+        <div class="activeCategory-left">
           <h3>Active Categories</h3>
           <p>Categories with tasks</p>
         </div>
 
-        <div class="activeCategory-left">
+        <div class="activeCategory-right">
           {{ categories.length }}
         </div>
       </div>
 
       @if(overdueTasks.length > 0) {
         <div class="attention-needed">
-          <div class="attention-needed-right">
+          <div class="attention-needed-left">
             <h3>Attention Needed</h3>
             <p>Overdue tasks require action</p>
           </div>
 
-          <div class="attention-needed-left">
+          <div class="attention-needed-right">
             ⚠️
           </div>
         </div>
-
       }
     </div>
   </div>

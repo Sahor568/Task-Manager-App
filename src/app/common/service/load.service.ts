@@ -1,24 +1,20 @@
 import { inject, Injectable } from '@angular/core';
-import { authService} from './auth.service';
-import { iCategory } from '../interFace/iCategory';
-import { iTask } from '../interFace/iTask';
+import { AuthService} from './auth.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class LoadService {
-  categories: iCategory[] = [];
-  tasks: iTask[] = [];
-  private authService = inject(authService);
+  private authService = inject(AuthService);
 
   public loadCategories(){
-    const userId = this.authService.getCurrentUser();
+    const userId = this.authService.getCurrentUserId();
     const categories = JSON.parse(localStorage.getItem('categories') || '[]');
     return categories.filter((c: any) => c.userId === userId);
   }
 
   public loadTasks() {
-    const userId = this.authService.getCurrentUser();
+    const userId = this.authService.getCurrentUserId();
     const tasks = JSON.parse(localStorage.getItem('tasks') || '[]');
     return tasks.filter((c: any) => c.userId === userId);
   }

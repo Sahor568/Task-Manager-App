@@ -1,23 +1,34 @@
 import { Component, inject } from '@angular/core';
 import { ColorPicker } from 'primeng/colorpicker';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { iCategory } from '../../interFace/iCategory';
-import { iTask } from '../../interFace/iTask';
-import { authService } from '../../Service/auth.service';
-import { LoadService } from '../../Service/load.service';
+import { iCategory } from '../../common/interface/iCategory';
+import { iTask } from '../../common/interface/iTask';
+import { AuthService } from '../../common/service/auth.service';
+import { LoadService } from '../../common/service/load.service';
+import { BreadcrumbModule } from 'primeng/breadcrumb';
+import { MenuItem } from 'primeng/api';
 
 
 @Component({
   selector: 'app-dashboard',
-  imports: [ReactiveFormsModule, FormsModule, ReactiveFormsModule, ColorPicker],
+  imports: [ReactiveFormsModule, FormsModule, ReactiveFormsModule, ColorPicker, BreadcrumbModule],
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.scss',
 })
 export class Dashboard {
+  //  PrimeNg BreadCrumb
+  // items: MenuItem[] = [
+  //   { label: 'Components' },
+  //   { label: 'Form' },
+  //   { label: 'InputText', routerLink: '/inputtext' },
+  // ];
+  // home: MenuItem = { icon: 'pi pi-home', routerLink: '/' };
+
+
   tasks: iTask[] = [];
   categories: iCategory[] = [];
 
-  private authService = inject(authService);
+  private authService = inject(AuthService);
   private loadService = inject(LoadService);
 
   protected readonly Math = Math;
