@@ -1,8 +1,8 @@
 import { Component, inject } from '@angular/core';
 import { ColorPicker } from 'primeng/colorpicker';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { iCategory } from '../../common/interface/iCategory';
-import { iTask } from '../../common/interface/iTask';
+import { ICategory } from '../../common/interface/iCategory';
+import { ITask } from '../../common/interface/iTask';
 import { AuthService } from '../../common/service/auth.service';
 import { LoadService } from '../../common/service/load.service';
 import { BreadcrumbModule } from 'primeng/breadcrumb';
@@ -24,8 +24,8 @@ export class Dashboard {
   // ];
   // home: MenuItem = { icon: 'pi pi-home', routerLink: '/' };
 
-  tasks: iTask[] = [];
-  categories: iCategory[] = [];
+  tasks: ITask[] = [];
+  categories: ICategory[] = [];
 
   private authService = inject(AuthService);
   private loadService = inject(LoadService);

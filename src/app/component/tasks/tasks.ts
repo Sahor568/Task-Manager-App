@@ -1,8 +1,8 @@
 import { Component, inject } from '@angular/core';
 import { RouterLink } from "@angular/router";
 import { ReactiveFormsModule } from '@angular/forms';
-import { iCategory } from '../../common/interface/iCategory';
-import { iTask } from '../../common/interface/iTask';
+import { ICategory } from '../../common/interface/iCategory';
+import { ITask } from '../../common/interface/iTask';
 import { AuthService} from '../../common/service/auth.service';
 import { LoadService } from '../../common/service/load.service';
 import { ToastService } from '../../common/service/toast.service';
@@ -15,8 +15,8 @@ import { ToastService } from '../../common/service/toast.service';
   styleUrl: './tasks.scss',
 })
 export class Tasks {
-  tasks: iTask[] = [];
-  categories: iCategory[] = [];
+  tasks: ITask[] = [];
+  categories: ICategory[] = [];
 
   private authService = inject(AuthService);
   private loadService = inject(LoadService);

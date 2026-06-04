@@ -10,7 +10,7 @@ import { Button } from 'primeng/button';
 import { Dialog } from 'primeng/dialog';
 import { InputText } from 'primeng/inputtext';
 import { ColorPickerModule } from 'primeng/colorpicker';
-import { iCategory } from '../../common/interface/iCategory';
+import { ICategory } from '../../common/interface/iCategory';
 import { AuthService } from '../../common/service/auth.service';
 import { LoadService } from '../../common/service/load.service';
 import { ToastService } from '../../common/service/toast.service';
@@ -30,7 +30,7 @@ import { ToastService } from '../../common/service/toast.service';
   providers: [],
 })
 export class Categories {
-  categories: iCategory[] = [];
+  categories: ICategory[] = [];
   isEditing = false;
   editingCategoryId: number | null = null;
   visible: boolean = false;
@@ -55,7 +55,7 @@ export class Categories {
   //   this.categories = categories.filter((c: any) => c.userId === userId);
   // }
 
-  protected showDialog(category?: iCategory) {
+  protected showDialog(category?: ICategory) {
     this.isEditing = !!category;
     this.editingCategoryId = category ? category.id : null;
     this.categoryForm.reset({ name: category ? category.name : '' });
@@ -90,7 +90,7 @@ export class Categories {
     this.visible = false;
   }
 
-  protected editCategory(category: iCategory) {
+  protected editCategory(category: ICategory) {
     this.isEditing = true;
     this.editingCategoryId = category.id;
     this.categoryForm.setValue({ name: category.name, color: category.color }); // Set form values for editing

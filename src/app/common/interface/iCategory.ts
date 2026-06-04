@@ -1,4 +1,4 @@
-export interface iCategory {
+export interface ICategory {
   id: number;
   name: string;
   color: string;

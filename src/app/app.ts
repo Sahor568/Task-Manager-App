@@ -1,10 +1,9 @@
 import { Component, inject, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { Header } from "./Component/header/header";
-import { Sidebar } from "./Component/sidebar/sidebar";
+import { Header } from "./component/header/header";
+import { Sidebar } from "./component/sidebar/sidebar";
 import { AuthService} from './common/service/auth.service';
 import { ToastModule } from 'primeng/toast';
-
 
 @Component({
   selector: 'app-root',

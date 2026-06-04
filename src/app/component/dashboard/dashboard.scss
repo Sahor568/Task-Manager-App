@@ -19,6 +19,7 @@
   grid-template-columns: repeat(3, 1fr);
   gap: 16px;
 
+
   > div {
     border: 1px solid #ddd;
     border-radius: 10px;
@@ -37,6 +38,14 @@
       font-weight: bold;
     }
 
+    i{
+      align-items: center;
+      border-radius: 8px;
+      padding: 10px;
+      display: flex;
+      justify-content: space-between;
+    }
+
     p {
       color: gray;
       font-size: 11.81px;
@@ -45,23 +54,38 @@
 }
 
 
-.completed-tasks .count {
+.completed-tasks .count{
+  color: #16A34A;
+}
+.completed-tasks i{
   color: #16A34A;
 }
 
 .pending-tasks .count {
   color: #2563EB;
 }
+.pending-tasks i{
+  color: #2563EB;
+}
 
 .completionRate-tasks .count {
+  color: #9333EA;
+}
+.completionRate-tasks i{
   color: #9333EA;
 }
 
 .dueToday-tasks .count {
   color: #EA580C;
 }
+.dueToday-tasks i{
+  color: #EA580C;
+}
 
 .overdue-tasks .count {
+  color: #DC2626;
+}
+.overdue-tasks i{
   color: #DC2626;
 }
 

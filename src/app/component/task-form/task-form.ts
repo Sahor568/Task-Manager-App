@@ -1,8 +1,8 @@
 import { Component, inject } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { iCategory } from '../../common/interface/iCategory';
-import { iTask } from '../../common/interface/iTask';
+import { ICategory } from '../../common/interface/iCategory';
+import { ITask } from '../../common/interface/iTask';
 import { AuthService } from '../../common/service/auth.service';
 import { ToastService } from '../../common/service/toast.service';
 
@@ -16,8 +16,8 @@ import { ToastService } from '../../common/service/toast.service';
 export class TaskFormComponent {
   isEditMode = false;
 
-  task!: iTask;
-  categories: iCategory[] = [];
+  task!: ITask;
+  categories: ICategory[] = [];
 
   private authService = inject(AuthService);
   private route = inject(ActivatedRoute);
@@ -42,7 +42,7 @@ export class TaskFormComponent {
   }
 
   private loadTask(taskId: string): void {
-    const tasks: iTask[] = JSON.parse(localStorage.getItem('tasks') || '[]');
+    const tasks: ITask[] = JSON.parse(localStorage.getItem('tasks') || '[]');
     this.task = tasks.find((t) => t.id === Number(taskId))!;
     this.taskForm.patchValue({
       title: this.task.title,
@@ -55,7 +55,7 @@ export class TaskFormComponent {
 
   private loadCategories(): void {
     const userId = this.authService.getCurrentUserId();
-    const allCategories: iCategory[] = JSON.parse(localStorage.getItem('categories') || '[]');
+    const allCategories: ICategory[] = JSON.parse(localStorage.getItem('categories') || '[]');
     this.categories = allCategories.filter((c) => c.userId === userId);
   }
 
@@ -91,7 +91,11 @@ export class TaskFormComponent {
     localStorage.setItem('tasks', JSON.stringify(tasks));
 
     // alert('Task created successfully!');
-    this.toastService.showToast('success', 'Task Added Successfully!', 'Task Added Successfully!');
+      this.toastService.showToast(
+        'success',
+        'Task Added Successfully!',
+        'Task Added Successfully!',
+      );
     this.router.navigate(['/tasks']);
     // window.location.href = '/tasks';
   }

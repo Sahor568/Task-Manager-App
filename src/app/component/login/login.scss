@@ -45,6 +45,10 @@ label {
 .input-section {
   width: 100%;
   margin-bottom: 4px;
+
+  label{
+    color: #1a1a1a;
+  }
 }
 
 .input-section input {
@@ -72,6 +76,7 @@ label {
   color: #e53935;
   font-size: 0.8rem;
   min-height: 18px;
+  margin: 20px;
 }
 
 

@@ -2,7 +2,7 @@ import { Component, inject, signal } from '@angular/core';
 import {  ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { DatePipe } from '@angular/common';
-import { iTask } from '../../common/interface/iTask';
+import { ITask } from '../../common/interface/iTask';
 import { ToastService } from '../../common/service/toast.service';
 
 @Component({
@@ -12,7 +12,7 @@ import { ToastService } from '../../common/service/toast.service';
   styleUrl: './tasks-detail.scss',
 })
 export class TasksDetail {
-  tasks!: iTask;
+  tasks!: ITask;
   taskId = signal('');
 
   private route = inject(ActivatedRoute);

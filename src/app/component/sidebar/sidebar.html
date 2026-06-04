@@ -3,17 +3,22 @@
 
   <ul class="menu">
     <li routerLink='/dashboard' routerLinkActive="active">
+      <i class="pi pi-bars" style="font-size: 1rem"></i>
       Overview
     </li>
     <li routerLink='/tasks' routerLinkActive="active">
+      <i class="pi pi-chart-line" style="font-size: 1rem"></i>
       All Tasks
     </li>
     <li routerLink='/categories' routerLinkActive="active">
+      <i class="pi pi-chart-bar" style="font-size: 1rem"></i>
       Categories
     </li>
   </ul>
 
   <div class="logout">
-    <button class="btn-logout" (click)="onLogout()">Logout</button>
+    <button class="btn-logout" (click)="onLogout()">
+      <i class="pi pi-sign-out" style="font-size: 1rem"></i>
+      Logout</button>
   </div>
 </div>

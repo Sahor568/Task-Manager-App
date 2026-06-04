@@ -1,12 +1,13 @@
 import { Routes } from '@angular/router';
-import { Dashboard } from './Component/dashboard/dashboard';
-import { Login } from './Component/login/login';
-import { Register } from './Component/register/register'
+import { Dashboard } from './component/dashboard/dashboard';
+import { Login } from './component/login/login';
+import { Register } from './component/register/register'
 import { authGuard, logGuard } from './auth-guard';
-import { Categories } from './Component/categories/categories';
-import { Tasks } from './Component/tasks/tasks';
-import { TasksDetail } from './Component/tasks-detail/tasks-detail'
-import { TaskFormComponent } from './Component/task-form/task-form';
+import { Categories } from './component/categories/categories';
+import { Tasks } from './component/tasks/tasks';
+import { TasksDetail } from './component/tasks-detail/tasks-detail'
+import { TaskFormComponent } from './component/task-form/task-form';
+
 
 
 export const routes: Routes = [

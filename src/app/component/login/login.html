@@ -6,9 +6,11 @@
         </div>
         <p>Enter your credentials to access your tasks</p>
 
-        <label>Email</label>
       <div class="input-section">
-        <input type="text" placeholder="Enter Email" formControlName="email">
+        <p-floatlabel>
+          <input pInputText id="over_label" formControlName="email" autocomplete="off" />
+          <label for="over_label">Email</label>
+        </p-floatlabel>
       </div>
       <div class="error-text">
         @if(email?.invalid && (email?.dirty || email?.touched)) {
@@ -18,9 +20,11 @@
         }
       </div>
 
-        <label>Password</label>
       <div class="input-section">
-        <input type="password" placeholder="Enter Password" formControlName="password">
+        <p-floatlabel>
+          <input type="password" pInputText id="over_label" formControlName="password" autocomplete="off" />
+          <label for="over_label">Password</label>
+        </p-floatlabel>
       </div>
       <div class="error-text">
         @if(password?.invalid && (password?.dirty || password?.touched)) {
@@ -31,7 +35,10 @@
       </div>
 
 <!--      <p-toast position="top-right"  />-->
-      <button type="submit" [disabled]="loginForm.invalid">Login</button>
+      <button type="submit" [disabled]="loginForm.invalid">
+        <i class="pi pi-sign-in" style="font-size: 1rem"></i>
+        Login
+      </button>
 
         <div class="link-text">
             Don't have an account? <a [routerLink]="['/register']">Register here</a>

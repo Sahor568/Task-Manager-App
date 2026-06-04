@@ -3,10 +3,12 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { Router, RouterLink } from '@angular/router';
 import { ToastModule } from 'primeng/toast';
 import { ToastService } from '../../common/service/toast.service';
+import { FloatLabel } from 'primeng/floatlabel';
+import { InputText } from 'primeng/inputtext';
 
 @Component({
   selector: 'app-login',
-  imports: [ReactiveFormsModule, RouterLink, ToastModule],
+  imports: [ReactiveFormsModule, RouterLink, ToastModule, FloatLabel, InputText],
   templateUrl: './login.html',
   styleUrls: ['./login.scss'],
 })
@@ -38,7 +40,7 @@ export class Login {
       this.router.navigate(['/dashboard']);
     } else {
       // alert('Invalid email or password!');
-     this.toastService.showToast('error', 'Login Status', 'Invalid email or password!');
+      this.toastService.showToast('error', 'Login Status', 'Invalid email or password!');
     }
   }
 
