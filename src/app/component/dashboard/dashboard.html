@@ -13,46 +13,59 @@
   </div>
 
   <div class="primary-container">
-    <div class="total-tasks">
-      <h3>Total Tasks</h3>
-      <i class="pi pi-bullseye" ></i>
-      <div class="count">{{ tasks.length }}</div>
-      <p>All tasks in the system</p>
+    <div class="card-primary-container">
+      <div>
+        <h3>Total Tasks</h3>
+        <div class="count">{{ tasks.length }}</div>
+        <p>All tasks in the system</p>
+      </div>
+      <i class="pi pi-bullseye icon-right"></i>
     </div>
 
-    <div class="completed-tasks">
+    <div class="card-primary-container">
+      <div>
       <h3>Completed</h3>
+        <div class="count">{{ completedTasks.length }}</div>
+        <p>Successfully finished tasks</p>
+      </div>
       <i class="pi pi-check-circle"></i>
-      <div class="count">{{ completedTasks.length }}</div>
-      <p>Successfully finished tasks</p>
     </div>
 
-    <div class="pending-tasks">
-      <h3>Pending</h3>
+    <div class="card-primary-container">
+      <div>
+        <h3>Pending</h3>
+        <div class="count">{{ pendingTasks.length }}</div>
+        <p>Tasks awaiting completion</p>
+      </div>
       <i class="pi pi-clock"></i>
-      <div class="count">{{ pendingTasks.length }}</div>
-      <p>Tasks awaiting completion</p>
     </div>
 
-    <div class="completionRate-tasks">
-      <h3>Completion Rate</h3>
+    <div class="card-primary-container">
+      <div>
+        <h3>Completion Rate</h3>
+        <div class="count">{{ completionRate }}%</div>
+        <p>Overall progress percentage</p>
+      </div>
       <i class="pi pi-list-check"></i>
-      <div class="count">{{ completionRate }}%</div>
-      <p>Overall progress percentage</p>
     </div>
 
-    <div class="dueToday-tasks">
-      <h3>Due Today</h3>
-      <i class="pi pi-list-check"></i>
-      <div class="count">{{ dueTodayTasks.length }}</div>
-      <p>Tasks due today</p>
+    <div class="card-primary-container">
+      <div>
+        <h3>Due Today</h3>
+        <div class="count">{{ dueTodayTasks.length }}</div>
+        <p>Tasks due today</p>
+      </div>
+      <i class="pi pi-clock"></i>
     </div>
 
-    <div class="overdue-tasks">
-      <h3>Overdue</h3>
-      <i class="pi pi-exclamation-circle"></i>
-      <div class="count">{{ overdueTasks.length }}</div>
-      <p>Tasks past due date</p>
+    <div class="card-primary-container">
+      <div>
+        <h3>Overdue</h3>
+
+        <div class="count">{{ overdueTasks.length }}</div>
+        <p>Tasks past due date</p>
+      </div> 
+      <i class="pi pi-exclamation-circle"></i> 
     </div>
   </div>
 

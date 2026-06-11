@@ -18,7 +18,7 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 16px;
-
+  position: relative;
 
   > div {
     border: 1px solid #ddd;
@@ -38,12 +38,11 @@
       font-weight: bold;
     }
 
-    i{
-      align-items: center;
-      border-radius: 8px;
-      padding: 10px;
+    i {
+      font-size: 24px;
       display: flex;
-      justify-content: space-between;
+      align-items: center;
+      justify-content: center;
     }
 
     p {
@@ -53,41 +52,72 @@
   }
 }
 
+.card-primary-container {
+  display: flex !important;
+  flex-direction: row !important;
+  justify-content: space-between;
+  align-items: center;
 
-.completed-tasks .count{
-  color: #16A34A;
-}
-.completed-tasks i{
-  color: #16A34A;
-}
-
-.pending-tasks .count {
-  color: #2563EB;
-}
-.pending-tasks i{
-  color: #2563EB;
+  i {
+    display: block !important;
+    font-size: 24px;
+    align-self: center;
+  }
 }
 
-.completionRate-tasks .count {
-  color: #9333EA;
-}
-.completionRate-tasks i{
-  color: #9333EA;
-}
+.card-primary-container:nth-child(1) .count { color: #374151; }
+.card-primary-container:nth-child(1) i { color: #9CA3AF; }
 
-.dueToday-tasks .count {
-  color: #EA580C;
-}
-.dueToday-tasks i{
-  color: #EA580C;
-}
+.card-primary-container:nth-child(2) .count { color: #16A34A; }
+.card-primary-container:nth-child(2) i { color: #16A34A; }
 
-.overdue-tasks .count {
-  color: #DC2626;
-}
-.overdue-tasks i{
-  color: #DC2626;
-}
+.card-primary-container:nth-child(3) .count { color: #2563EB; }
+.card-primary-container:nth-child(3) i { color: #2563EB; }
+
+.card-primary-container:nth-child(4) .count { color: #9333EA; }
+.card-primary-container:nth-child(4) i { color: #9333EA; }
+
+.card-primary-container:nth-child(5) .count { color: #EA580C; }
+.card-primary-container:nth-child(5) i { color: #EA580C; }
+
+.card-primary-container:nth-child(6) .count { color: #DC2626; }
+.card-primary-container:nth-child(6) i { color: #DC2626; }
+
+
+// .completed-tasks .count {
+//   color: #16A34A;
+// }
+// .completed-tasks i {
+//   color: #16A34A;
+// }
+
+// .pending-tasks .count {
+//   color: #2563EB;
+// }
+// .pending-tasks i {
+//   color: #2563EB;
+// }
+
+// .completionRate-tasks .count {
+//   color: #9333EA;
+// }
+// .completionRate-tasks i {
+//   color: #9333EA;
+// }
+
+// .dueToday-tasks .count {
+//   color: #EA580C;
+// }
+// .dueToday-tasks i {
+//   color: #EA580C;
+// }
+
+// .overdue-tasks .count {
+//   color: #DC2626;
+// }
+// .overdue-tasks i {
+//   color: #DC2626;
+// }
 
 .secondary-container {
   display: grid;
@@ -148,10 +178,6 @@
   background: rgb(188 188 188 / 0.16);
 }
 
-.attention-needed {
-  background: rgb(255 223 223 / 0.16);
-}
-
 .newTask-left,
 .activeCategory-left,
 .attention-needed-left {
@@ -179,7 +205,7 @@
 .attention-needed {
   border: 1px solid pink;
 
-  h3{
+  h3 {
     font-weight: 400;
     font-size: 15.63px;
     line-height: 24px;
