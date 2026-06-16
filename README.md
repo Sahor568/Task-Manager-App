@@ -43,23 +43,6 @@ A full-featured task management single-page application built with **Angular 21*
 - Footer
 - Clean, modern UI with PrimeNG Aura theme
 
----
-
-## Tech Stack
-
-| Technology | Version |
-|---|---|
-| [Angular](https://angular.dev) | ~21.2.0 |
-| [PrimeNG](https://primeng.org) | ~21.1.8 |
-| [PrimeUIX Themes](https://github.com/primefaces/primeuix) | ~2.0.3 (Aura) |
-| [TypeScript](https://www.typescriptlang.org) | ~5.9.2 |
-| [RxJS](https://rxjs.dev) | ~7.8.0 |
-| [Reactive Forms](https://angular.dev/guide/forms/reactive-forms) | — |
-| [Vitest](https://vitest.dev) | ~4.0.8 |
-| [Prettier](https://prettier.io) | ~3.8.1 |
-| Storage | `localStorage` (no backend) |
-
----
 
 ## Project Structure
 
@@ -140,9 +123,6 @@ npm test
 # or
 ng test
 ```
-
-Unit tests are run with [Vitest](https://vitest.dev).
-
 ---
 
 ## Usage
@@ -155,26 +135,3 @@ Unit tests are run with [Vitest](https://vitest.dev).
 6. **Edit or delete** tasks as needed
 
 ---
-
-## Progress (2 Weeks)
-
-| Week | Focus | Deliverables |
-|---|---|---|
-| Week 1 | Angular setup, routing, auth system, layout | Login, register, auth guard, sidebar/header/footer, PrimeNG integration |
-| Week 2 | Core features | Dashboard analytics, task CRUD, category CRUD, search/filter, detail view |
-
----
-
-## Known Issues
-
-- App shell layout renders regardless of login state (route-level protection still applies)
-- Register component has a missing `Router` injection
-- Edit task page category select is missing `formControlName` binding
-- Task detail delete method is not implemented
-- No centralized data service — components read/write `localStorage` directly
-
----
-
-## License
-
-This project is for educational and personal use.
