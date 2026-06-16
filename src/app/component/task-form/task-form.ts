@@ -10,6 +10,7 @@ import { DatePickerModule } from 'primeng/datepicker';
 import { InputMaskModule } from 'primeng/inputmask';
 import { DatePipe } from '@angular/common';
 import { Select } from 'primeng/select';
+import { LoadService } from '../../common/service/load.service';
 
 interface Status {
   name: string;
@@ -21,7 +22,7 @@ interface Status {
   imports: [ReactiveFormsModule, DatePickerModule, InputMaskModule, Select],
   templateUrl: './task-form.html',
   styleUrl: './task-form.scss',
-  providers: [DatePipe] // Added DatePipe to providers to fix inject error
+  providers: [DatePipe]
 })
 export class TaskFormComponent {
   status!: Status[];
@@ -37,6 +38,7 @@ export class TaskFormComponent {
   private route = inject(ActivatedRoute);
   private router = inject(Router);
   private toastService = inject(ToastService);
+  private loadService = inject(LoadService);
   private datePipe = inject(DatePipe);
 
   taskForm = new FormGroup({
@@ -53,7 +55,7 @@ export class TaskFormComponent {
       this.isEditMode = true;
       this.loadTask(taskId);
     }
-    this.loadCategories();
+    this.categories = this.loadService.loadCategories();
 
     this.status = [
       { name: 'All Status', value: '' },
@@ -83,12 +85,6 @@ export class TaskFormComponent {
     description: this.task.description,
   });
 }
-
-  private loadCategories(): void {
-    const userId = this.authService.getCurrentUserId();
-    const allCategories: ICategory[] = JSON.parse(localStorage.getItem('categories') || '[]');
-    this.categories = allCategories.filter((c) => c.userId === userId);
-  }
 
   protected onSubmit(): void {
     const formData = this.taskForm.value as {
