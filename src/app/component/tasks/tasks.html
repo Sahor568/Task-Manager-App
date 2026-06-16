@@ -18,25 +18,36 @@
       <h3 >Task ({{ tasks.length}})</h3>
     </div>
     <div class="filter-task">
-      <label>Category</label>
-      <select (input)="filterCategory($event)">
-        <option value="">Select category</option>
-        @for (cat of categories; track cat.id) {
-          <option value="{{ cat.name }}">{{ cat.name }}</option>
-        }
-      </select>
-      <label>Status</label>
-      <select (input)="filterStatus($event)">
-        <option value="">All</option>
-        <option value="Pending">Pending</option>
-        <option value="In Progress">In Progress</option>
-        <option value="Completed">Completed</option>
-      </select>
+<!--      <label>Category</label>-->
+<!--      <select (input)="filterCategory($event)">-->
+<!--        <option value="">Select category</option>-->
+<!--        @for (cat of categories; track cat.id) {-->
+<!--          <option value="{{ cat.name }}">{{ cat.name }}</option>-->
+<!--        }-->
+<!--      </select>-->
+      <p-select class="w-full md:w-56" [options]="categoryOptions"
+        (onChange)="filterCategory($event.value)" optionLabel="name" optionValue="value"
+        placeholder="All Categories" />
+
+
+
+<!--       <label>Status</label>-->
+<!--        <select (input)="filterStatus($event)">-->
+<!--          <option value="">All</option>-->
+<!--          <option value="Pending">Pending</option>-->
+<!--          <option value="In Progress">In Progress</option>-->
+<!--          <option value="Completed">Completed</option>-->
+<!--        </select>-->
+      <p-select class="w-full md:w-56" [options]="status"
+        (onChange)="filterStatus($event.value)" optionLabel="name" optionValue="value"
+        placeholder="All Status"/>
+      <!--   we use onchange in place of input because to trigger because primeng uses onchange feature-->
     </div>
+
     <div class="tasks-card">
       @if (tasks.length > 0) {
 
-        <table border="1" width="100%" cellpadding="10" >
+        <table>
           <tr>
             <th>Title</th>
             <th>Category</th>
@@ -49,7 +60,7 @@
             <tr>
               <td>{{ t.title }}</td>
               <td>{{ t.category }}</td>
-              <td>{{ t.dueDate }}</td>
+              <td>{{ t.dueDate | date:'dd/MM/yyyy' }}</td>
               <td>{{ t.status }}</td>
               <td>
                 <button title="View" [routerLink]="['/tasks-detail', t.id]">

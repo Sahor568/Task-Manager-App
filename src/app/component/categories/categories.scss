@@ -83,6 +83,7 @@
 td button {
   border: 1px solid #ddd;
   background: black;
+  color: white;
   padding: 7px 12px;
   margin-right: 6px;
   border-radius: 4px;
@@ -103,6 +104,51 @@ td button {
   p {
     color: #777;
     font-size: 15px;
+  }
+}
+
+::ng-deep .p-dialog {
+  background: white !important;
+  color: black !important;
+
+  label {
+    display: block !important;
+    font-size: 14px !important;
+    color: #6b7280 !important;
+    margin-bottom: 10px !important;
+    margin-top: 10px !important;
+  }
+
+   input{
+     color: black !important;
+     border: 1px solid #ddd !important;
+     border-radius: 4px !important;
+     //background: white;
+     width: 100% !important;
+     height: 36px !important;
+   }
+}
+
+::ng-deep .p-button[type="submit"] {
+  background: #2f2f2f !important;
+  color: white !important;
+  border: 2px solid #ddd !important;
+
+  &:hover {
+    background: gray !important;
+    color: black !important;
+    border: 2px solid #ddd !important;
+
+  }
+}
+
+::ng-deep .p-button[type="cancel"]{
+  background: red !important;
+  color: white !important;
+  border: 2px solid red !important;
+
+  &:hover {
+    background: #a81f1f !important;
   }
 }
 

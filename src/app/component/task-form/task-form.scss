@@ -48,6 +48,46 @@
         background: white;
       }
 
+      ::ng-deep .p-datepicker {
+        width: 100%;
+
+        .p-datepicker-input {
+          flex: 1 1 auto;
+          width: 1%;
+        }
+
+        .p-inputtext {
+          font-size: 1rem;
+          color: black;
+          background: white;
+        }
+
+        .p-datepicker-panel {
+          width: auto;
+          padding: var(--p-datepicker-panel-padding);
+          background: white;
+        }
+
+        .p-datepicker-day {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          cursor: pointer;
+          margin: 0 auto;
+          overflow: hidden;
+          position: relative;
+          border: 1px solid transparent;
+          outline-color: transparent;
+          color: black;
+        }
+
+        .p-datepicker-today > .p-datepicker-day {
+          background: #888;
+          color: var(--p-datepicker-today-color);
+        }
+
+      }
+
       textarea {
         width: 100%;
         min-height: 120px;
@@ -107,3 +147,13 @@
     }
   }
 }
+
+::ng-deep .p-select {
+  width: 100%;
+
+  .p-select-label{
+    border: #ddd;
+    border-radius: 4px;
+  }
+}
+

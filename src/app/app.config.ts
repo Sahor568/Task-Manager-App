@@ -4,7 +4,7 @@ import { providePrimeNG } from 'primeng/config';
 import { routes } from './app.routes';
 import Aura from '@primeuix/themes/aura';
 import { MessageService } from 'primeng/api';
-import 'primeicons/primeicons.css';
+import { DatePipe } from '@angular/common';
 
 
 export const appConfig: ApplicationConfig = {
@@ -14,8 +14,12 @@ export const appConfig: ApplicationConfig = {
     providePrimeNG({
       theme: {
         preset: Aura,
+        options: {
+          darkModeSelector: false,
+        },
       },
     }),
     MessageService,
+    DatePipe,
   ],
 };

@@ -1,20 +1,31 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { RouterLink } from "@angular/router";
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ICategory } from '../../common/interface/iCategory';
 import { ITask } from '../../common/interface/iTask';
 import { AuthService} from '../../common/service/auth.service';
 import { LoadService } from '../../common/service/load.service';
 import { ToastService } from '../../common/service/toast.service';
 
+import { SelectModule } from 'primeng/select';
+
+interface Status {
+  name: string;
+  value: string;
+}
+
 
 @Component({
   selector: 'app-tasks',
-  imports: [RouterLink, ReactiveFormsModule, ReactiveFormsModule],
+  imports: [RouterLink, ReactiveFormsModule, SelectModule, FormsModule, CommonModule],
   templateUrl: './tasks.html',
   styleUrl: './tasks.scss',
 })
-export class Tasks {
+export class Tasks implements OnInit {
+  status!: Status[];
+  categoryOptions: { name: string; value: string }[] = [];
+
   tasks: ITask[] = [];
   categories: ICategory[] = [];
 
@@ -25,6 +36,18 @@ export class Tasks {
   ngOnInit(): void {
     this.tasks = this.loadService.loadTasks(); // Load tasks when the component initializes
     this.categories = this.loadService.loadCategories(); // Load Category when the component initializes
+
+    this.status = [
+      { name: 'All Status', value: '' },
+      { name: 'Pending', value: 'Pending' },
+      { name: 'In Progress', value: 'In Progress' },
+      { name: 'Completed', value: 'Completed' },
+    ];
+
+    this.categoryOptions = [
+      { name: 'All Categories', value: '' },
+      ...this.categories.map((c) => ({ name: c.name, value: c.name })),
+    ];
   }
 
   protected deleteTask(taskId: number): void {
@@ -40,19 +63,20 @@ export class Tasks {
   protected onSearch(event: any): void {
     const searchTerm = event.target.value.toLowerCase();
     this.tasks = this.loadService.loadTasks();
-      this.tasks = this.tasks.filter((t: any) => t.title.toLowerCase().includes(searchTerm) );
-
+    this.tasks = this.tasks.filter((t: any) => t.title.toLowerCase().includes(searchTerm));
   }
 
-  protected filterCategory(event: any): void {
-    const filterCategory = event.target.value.toLowerCase();
+  protected filterCategory(category: string): void {
     this.tasks = this.loadService.loadTasks();
-    this.tasks = this.tasks.filter((t: any) => t.category.toLowerCase().includes(filterCategory));
+    if (category) {
+      this.tasks = this.tasks.filter((t: any) => t.category === category);
+    }
   }
 
-  protected filterStatus(event: any): void {
-    const filterStatus = event.target.value.toLowerCase();
+  protected filterStatus(status: string): void {
     this.tasks = this.loadService.loadTasks();
-    this.tasks = this.tasks.filter((t: any) => t.status.toLowerCase().includes(filterStatus));
+    if (status) {
+      this.tasks = this.tasks.filter((t: any) => t.status === status);
+    }
   }
 }
