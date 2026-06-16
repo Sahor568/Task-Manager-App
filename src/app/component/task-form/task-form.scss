@@ -155,5 +155,14 @@
     border: #ddd;
     border-radius: 4px;
   }
+
+  .p-select-option.p-select-option-selected.p-focus {
+    background: #dddd;
+    color: black;
+  }
+  .p-select-option.p-select-option-selected {
+    background: #dddddddd;
+    color: black;
+  }
 }
 
