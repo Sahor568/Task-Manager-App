@@ -10,10 +10,11 @@ import { AuthService } from '../../common/service/auth.service';
 export class Header {
   private authService = inject(AuthService);
 
+  // Get the current user name to show in the header
   protected getUserName(): string {
     const userId = this.authService.getCurrentUserId();
     const users: any[] = JSON.parse(localStorage.getItem('users') || '[]'); // Get the list of users from localStorage
     const user = users.find((u: any) => u.id === userId); // Find the user with the matching ID
-    return user?.name || 'Guest';
+    return user?.name;
   }
 }

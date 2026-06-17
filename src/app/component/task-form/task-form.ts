@@ -27,10 +27,10 @@ interface Status {
 export class TaskFormComponent {
   status!: Status[];
 
-  isEditMode = false;
+  isEditMode = false; // In default edit mode is false
 
   task!: ITask;
-  categoryOptions: { name: string; value: string }[] = [];
+  categoryOptions: { name: string; value: number | string }[] = [];
 
   categories: ICategory[] = [];
 
@@ -41,7 +41,8 @@ export class TaskFormComponent {
   private loadService = inject(LoadService);
   private datePipe = inject(DatePipe);
 
-  taskForm = new FormGroup({
+  // Form group for task input
+  protected taskForm = new FormGroup({
     title: new FormControl('', Validators.required),
     category: new FormControl('', Validators.required),
     dueDate: new FormControl('', Validators.required),
@@ -50,13 +51,14 @@ export class TaskFormComponent {
   });
 
   ngOnInit(): void {
-    const taskId = this.route.snapshot.paramMap.get('id');
+    const taskId = this.route.snapshot.paramMap.get('id'); // Check if we are in edit mode (if there's an ID in the route)
     if (taskId) {
       this.isEditMode = true;
       this.loadTask(taskId);
     }
     this.categories = this.loadService.loadCategories();
 
+    // Prepare status options for the primeNG dropdown filter
     this.status = [
       { name: 'All Status', value: '' },
       { name: 'Pending', value: 'Pending' },
@@ -64,12 +66,14 @@ export class TaskFormComponent {
       { name: 'Completed', value: 'Completed' },
     ];
 
+    // Prepare category options for the primeNG dropdown filter
     this.categoryOptions = [
       { name: 'All Categories', value: '' },
-      ...this.categories.map((c) => ({ name: c.name, value: c.name })),
+      ...this.categories.map((c) => ({ name: c.name, value: c.id })),
     ];
   }
 
+  // Function to load task data into the form for editing
   private loadTask(taskId: string): void {
   const tasks: ITask[] = JSON.parse(localStorage.getItem('tasks') || '[]');
   this.task = tasks.find((t) => t.id === Number(taskId))!;
@@ -77,6 +81,7 @@ export class TaskFormComponent {
   // Convert string to Date object for p-datepicker
   const dueDate = this.task.dueDate ? new Date(this.task.dueDate) : '';
 
+  // Patch the form with the task data
   this.taskForm.patchValue({
     title: this.task.title,
     category: this.task.category,
@@ -86,6 +91,7 @@ export class TaskFormComponent {
   });
 }
 
+  // Function to handle form submission for both creating and updating tasks
   protected onSubmit(): void {
     const formData = this.taskForm.value as {
       title: string;
@@ -95,6 +101,7 @@ export class TaskFormComponent {
       description: string;
     };
 
+    // Validate form data before proceeding
     if (this.isEditMode) {
       this.updateTask(formData);
     } else {
@@ -102,6 +109,7 @@ export class TaskFormComponent {
     }
   }
 
+  // Function to create a new task
   private createTask(formData: { dueDate: string | Date }): void {
     const tasks = JSON.parse(localStorage.getItem('tasks') || '[]');
     const nextId = tasks.length ? Math.max(...tasks.map((t: any) => t.id)) + 1 : 1;
@@ -117,10 +125,11 @@ export class TaskFormComponent {
     tasks.push(newTask);
     localStorage.setItem('tasks', JSON.stringify(tasks));
 
-    this.toastService.showToast('success', 'Task Added Successfully!', 'Task Added Successfully!');
+    this.toastService.showToast('success', 'Task Added Successfully!', 'Task Added Successfully!'); // Show success toast message
     this.router.navigate(['/tasks']); // Fixed: Uncommented navigation after creating task
   }
 
+  // Function to update an existing task
   private updateTask(formData: { dueDate: string | Date }): void {
     const taskId = this.route.snapshot.paramMap.get('id');
     console.log('Form Data:', formData);
@@ -138,13 +147,14 @@ export class TaskFormComponent {
       return t;
     });
     localStorage.setItem('tasks', JSON.stringify(updated));
-    this.toastService.showToast('info', 'Task Status', 'Task edited successfully!');
+    this.toastService.showToast('info', 'Task Status', 'Task edited successfully!'); // Show info toast message
     this.router.navigate(['/tasks']);
     // window.location.href = '/tasks';
   }
 
+  // Function to handle cancellation of task creation/editing
   protected onCancel(): void {
-    this.toastService.showToast('error', 'Task Status', 'You cancelled the task!');
+    this.toastService.showToast('error', 'Task Status', 'You cancelled the task!'); // Show error toast message
     window.history.back();
   }
 }

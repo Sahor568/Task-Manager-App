@@ -15,6 +15,7 @@ export class App {
   view = signal('');
   private authService = inject(AuthService);
 
+  // Check if the user is available or not
   isLoggedIn() {
     const currentUser = this.authService.getCurrentUserId();
     return !!currentUser;

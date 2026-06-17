@@ -20,15 +20,11 @@ export class TasksDetail {
 
 
   ngOnInit() {
-    this.loadTasks();
+    this.loadTasks(); // Load task details when the component initializes
   }
 
+  // Function to load task details based on the ID from the route
   protected loadTasks() {
-    // this.route.params.subscribe((params) => {
-    //   this.taskId.set(params['id']);
-    // });
-    // const taskId = this.taskId();
-
     const taskId = this.route.snapshot.paramMap.get('id');
     console.log(taskId);
 
@@ -36,14 +32,16 @@ export class TasksDetail {
     this.tasks = tasks.find((t: any) => t.id == taskId);
   }
 
+  // Function to handle task deletion
   protected deleteTask() {
     const tasks = JSON.parse(localStorage.getItem('tasks') || '[]');
     const updatedTasks = tasks.filter((t: any) => t.id != this.tasks.id);
     localStorage.setItem('tasks', JSON.stringify(updatedTasks));
-    this.toastService.showToast('error', 'Alert', 'Task deleted successfully!');
+    this.toastService.showToast('error', 'Alert', 'Task deleted successfully!'); // Show error toast message
     this.back();
   }
 
+  // Function to navigate back to the previous page
   protected back() {
     window.history.back();
   }

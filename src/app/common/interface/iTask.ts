@@ -1,3 +1,4 @@
+// It is an interface for the task model
 export interface ITask {
   id: number;
   userId: number;

@@ -31,16 +31,17 @@ import { ToastService } from '../../common/service/toast.service';
 })
 export class Categories {
   categories: ICategory[] = [];
-  isEditing = false;
-  editingCategoryId: number | null = null;
-  visible: boolean = false;
+  isEditing = false; // In default, we are not editing any category
+  editingCategoryId: number | null  = null;
+  visible: boolean = false; // In default, the dialog is not visible
   color: ColorPickerModule | undefined;
 
   private authService = inject(AuthService);
   private loadService = inject(LoadService);
   private toastService = inject(ToastService);
 
-  categoryForm = new FormGroup({
+  // Form group for category input
+  protected categoryForm = new FormGroup({
     name: new FormControl('', [Validators.required, Validators.minLength(3)]),
     color: new FormControl(''),
   });
@@ -49,12 +50,7 @@ export class Categories {
     this.categories = this.loadService.loadCategories(); // Will load categories when the component initializes
   }
 
-  // private loadCategories(): void {
-  //   const userId = this.authService.getCurrentUser();
-  //   const categories = JSON.parse(localStorage.getItem('categories') || '[]');
-  //   this.categories = categories.filter((c: any) => c.userId === userId);
-  // }
-
+  // Function to show the dialog for adding or editing a category
   protected showDialog(category?: ICategory) {
     this.isEditing = !!category;
     this.editingCategoryId = category ? category.id : null;
@@ -62,10 +58,8 @@ export class Categories {
     this.visible = true;
   }
 
+  // Function to handle form submission for adding or editing a category
   protected onSubmit() {
-    // if (this.categoryForm.invalid) return;
-
-    // const { name, color } = this.categoryForm.value;
     const userId = this.authService.getCurrentUserId();
     const categories = JSON.parse(localStorage.getItem('categories') || '[]');
     const nextId = categories.length ? Math.max(...categories.map((c: any) => c.id)) + 1 : 1;
@@ -90,6 +84,8 @@ export class Categories {
     this.visible = false;
   }
 
+
+  // Function to handle editing a category
   protected editCategory(category: ICategory) {
     this.isEditing = true;
     this.editingCategoryId = category.id;
@@ -97,12 +93,12 @@ export class Categories {
     this.visible = true;
   }
 
+  // Function to handle deleting a category
   protected deleteCategory(id: number): void {
     const categories = JSON.parse(localStorage.getItem('categories') || '[]');
     const updatedCategories = categories.filter((c: any) => c.id !== id);
     localStorage.setItem('categories', JSON.stringify(updatedCategories));
-    this.loadService.loadCategories(); // Refresh the list after deletion
-    this.toastService.showToast('error', 'Alert', 'Category deleted successfully!');
+    this.toastService.showToast('error', 'Alert', 'Category deleted successfully!'); // Show error toast message
 
     this.categories = updatedCategories;
   }

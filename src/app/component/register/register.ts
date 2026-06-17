@@ -13,54 +13,37 @@ export class Register {
   private router = inject(Router);
   private toastService = inject(ToastService);
 
-  registerForm = new FormGroup({
+  // Form group for register form
+  protected registerForm = new FormGroup({
     email: new FormControl('', [
       Validators.required,
-      Validators.pattern(/^[^\s@]+@[^\s@]+\.[^\s@]+$/),
+      Validators.pattern(/^[^\s@]+@[^\s@]+\.[^\s@]+$/), // Regex pattern for email validation
     ]),
     password: new FormControl('', [Validators.required, Validators.minLength(6)]),
     confirmPassword: new FormControl('', [Validators.required, Validators.minLength(6)]),
     name: new FormControl('', [Validators.required, Validators.minLength(3)]),
   });
 
+  // Method to handle form submission
   protected onSubmit() {
-    // if (this.registerForm.valid) {
-    //   alert(JSON.stringify(this.registerForm.value));
-    //   console.log(this.registerForm.value);
-    // }
-
-    // const users = JSON.parse(localStorage.getItem('users') || '[]');
-    // users.push(this.registerForm.value);
-    // localStorage.setItem('users', JSON.stringify(users));
-
-    // if (this.registerForm.invalid) {
-    //   alert('Please fill in all required fields with valid data!');
-    //   return;
-    // }
-
     const formData = this.registerForm.getRawValue(); // Get form data as a plain object
 
     if (formData.password !== formData.confirmPassword) {
       // alert("Passwords don't match!");
-      this.toastService.showToast('info', 'Alert', "Passwords don't match!");
+      this.toastService.showToast('info', 'Alert', "Passwords don't match!"); // Show info toast message
       return;
     }
 
     const users = JSON.parse(localStorage.getItem('users') || '[]'); //[] this is fallback
 
     if (users.find((u: any) => u.email === formData.email)) {
-      // alert('Email already registered!');
-      this.toastService.showToast('info', 'Alert', 'Email already registered!');
+      this.toastService.showToast('info', 'Alert', 'Email already registered!'); // Show info toast message
       return;
     }
-    // let app= users.map((u: any) => u.email === formData.email);
-    // if(app){
-    //   alert('Email already registered!');
-    //   return;
-    // }
 
-    const nextId = users.length ? Math.max(...users.map((u: any) => u.id)) + 1 : 1;
+    const nextId = users.length ? Math.max(...users.map((u: any) => u.id)) + 1 : 1; // Generate next user ID based on existing users
 
+    // Create a new user object with the form data and generated ID
     const newUser = {
       id: nextId, //Date.now()
       name: formData.name,
@@ -68,24 +51,29 @@ export class Register {
       password: formData.password,
     };
 
-    users.push(newUser);
-    localStorage.setItem('users', JSON.stringify(users));
+    users.push(newUser); // Add new user to the users array
+    localStorage.setItem('users', JSON.stringify(users)); // Save updated users array to localStorage
 
-    this.toastService.showToast('success', 'Register Status', 'Register successfully!');
+    this.toastService.showToast('success', 'Register Status', 'Register successfully!'); // Show success toast message
       this.router.navigate(['/login']);
   }
+
+  // for form validation
   protected get email() {
     return this.registerForm.get('email');
   }
 
+  // for form validation
   protected get password() {
     return this.registerForm.get('password');
   }
 
+  // for form validation
   protected get confirmPassword() {
     return this.registerForm.get('confirmPassword');
   }
 
+  // for form validation
   protected get name() {
     return this.registerForm.get('name');
   }

@@ -9,8 +9,9 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
   styleUrl: './sidebar.scss',
 })
 export class Sidebar {
+  // Logout the current user and redirect to the login page
   protected onLogout() {
-    localStorage.removeItem('currentUser');
+    localStorage.removeItem('currentUserId');
     window.location.href = '/login';
   }
 }

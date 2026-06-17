@@ -7,6 +7,7 @@ import { MessageService } from 'primeng/api';
 export class ToastService {
   private messageService = inject(MessageService);
 
+  // Show a toast message with the specified severity, summary, and detail
   public showToast(severity:'info'|'success'|'error', summary: string, detail: string): void {
     this.messageService.add({
       severity,
