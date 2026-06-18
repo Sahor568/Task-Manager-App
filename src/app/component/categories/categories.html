@@ -14,7 +14,7 @@
     </div>
     <div class="categories-card">
       @if (categories.length > 0 ){
-        <p-table [value]="categories" [tableStyle]="{ 'min-width': '50rem' }" [paginator]="true" [rows]="5" [tableStyle]="{ 'min-width': '50rem' }" [rowsPerPageOptions]="[1, 2, 5]">
+        <p-table [value]="categories" [tableStyle]="{ 'min-width': '50rem' }" [paginator]="true" [rows]="5" [tableStyle]="{ 'min-width': '50rem' }" [rowsPerPageOptions]="[5, 10, 10]">
           <ng-template #header>
             <tr>
               <th>Title</th>
