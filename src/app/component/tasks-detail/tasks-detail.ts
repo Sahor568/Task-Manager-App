@@ -32,7 +32,7 @@ export class TasksDetail {
   // Function to load task details based on the ID from the route
   protected loadTasks() {
     const taskId = this.route.snapshot.paramMap.get('id');
-    console.log(taskId);
+    // console.log(taskId);
 
     const tasks = this.loadService.loadTasks();
     this.tasks = tasks.find((t: any) => t.id == taskId);

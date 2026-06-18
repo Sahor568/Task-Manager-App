@@ -132,7 +132,7 @@ export class TaskFormComponent {
   // Function to update an existing task
   private updateTask(formData: { dueDate: string | Date }): void {
     const taskId = this.route.snapshot.paramMap.get('id');
-    console.log('Form Data:', formData);
+    // console.log('Form Data:', formData);
     const tasks = JSON.parse(localStorage.getItem('tasks') || '[]');
 
     const dueDate = this.taskForm.get('dueDate')?.value as unknown;

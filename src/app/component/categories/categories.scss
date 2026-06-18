@@ -41,30 +41,29 @@
   border: 1px solid #ddd;
   border-radius: 4px;
   padding: 20px;
-}
 
-.categories-container {
   h3 {
     margin-bottom: 15px;
   }
 }
 
-td button {
-  border: 1px solid #ddd;
-  background: black;
-  color: white;
-  padding: 7px 12px;
-  margin-right: 6px;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: 0.2s ease;
-  font-size: 13px;
 
-  &:hover {
-    background: gray;
-    color: black;
-  }
-}
+//td button {
+//  border: 1px solid #ddd;
+//  background: black;
+//  color: white;
+//  padding: 7px 12px;
+//  margin-right: 6px;
+//  border-radius: 4px;
+//  cursor: pointer;
+//  transition: 0.2s ease;
+//  font-size: 13px;
+//
+//  &:hover {
+//    background: gray;
+//    color: black;
+//  }
+//}
 
 .empty-state {
   text-align: center;
@@ -121,4 +120,12 @@ td button {
   }
 }
 
-
+::ng-deep .table{
+  .p-paginator-page.p-paginator-page-selected,
+  .p-select-option.p-select-option-selected.p-focus,
+  .p-select-option.p-select-option-selected
+  {
+    background: #ddd !important;
+    color: black !important;
+  }
+}

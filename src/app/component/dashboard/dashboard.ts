@@ -49,7 +49,7 @@ export class Dashboard {
   // Getter methods to filter due today tasks
   protected get dueTodayTasks() {
     const today = new Date().toISOString().split('T')[0];
-    console.log(today);
+    // console.log(today);
     return this.tasks.filter((task) => task.dueDate === today);
   }
 
