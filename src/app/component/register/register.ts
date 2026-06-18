@@ -34,7 +34,7 @@ export class Register {
       return;
     }
 
-    const users = JSON.parse(localStorage.getItem('users') || '[]'); //[] this is fallback
+    const users = JSON.parse(localStorage.getItem('users') || '[]'); // [] this is fallback
 
     if (users.find((u: any) => u.email === formData.email)) {
       this.toastService.showToast('info', 'Alert', 'Email already registered!'); // Show info toast message

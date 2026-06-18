@@ -1,3 +1,4 @@
+<p-confirmDialog />
 <div class="task-container">
   <div class="card flex justify-center">
   </div>
@@ -46,17 +47,17 @@
 
     <div class="tasks-card">
       @if (tasks.length > 0) {
-
-        <table>
-          <tr>
-            <th>Title</th>
-            <th>Category</th>
-            <th>Due Date</th>
-            <th>Status</th>
-            <th>Actions</th>
-          </tr>
-
-          @for (t of tasks; track t.id) {
+        <p-table [value]="tasks" [tableStyle]="{ 'min-width': '50rem' }">
+          <ng-template #header>
+            <tr>
+              <th>Title</th>
+              <th>Category</th>
+              <th>Due Date</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </ng-template>
+          <ng-template #body let-t let-index="index">
             <tr>
               <td>{{ t.title }}</td>
               <td>{{ t.category }}</td>
@@ -69,13 +70,11 @@
                 <button title="Edit" [routerLink]="['/tasks-edit', t.id]">
                   Edit
                 </button>
-                <button title="Delete" (click)="deleteTask(t.id)">
-                  Delete
-                </button>
+                <p-button (click)="deleteTask(t.id)" label="Delete" severity="danger" [outlined]="true" />
               </td>
             </tr>
-          }
-        </table>
+          </ng-template>
+        </p-table>
       } @else {
         <div class="empty-state">
           <p>No tasks found. Create a new task to get started!</p>

@@ -1,3 +1,4 @@
+<p-confirmDialog />
 <div class="category-container">
   <div class="page-header">
     <div class="header-left">
@@ -13,13 +14,15 @@
     </div>
     <div class="categories-card">
       @if (categories.length > 0 ){
-        <table border="1" width="100%" cellpadding="10" >
-          <tr>
-            <th>Title</th>
-            <th>Color</th>
-            <th>Actions</th>
-          </tr>
-          @for (cat of categories; track cat.id) {
+        <p-table [value]="categories" [tableStyle]="{ 'min-width': '50rem' }" [paginator]="true" [rows]="5" [tableStyle]="{ 'min-width': '50rem' }" [rowsPerPageOptions]="[1, 2, 5]">
+          <ng-template #header>
+            <tr>
+              <th>Title</th>
+              <th>Color</th>
+              <th>Actions</th>
+            </tr>
+          </ng-template>
+          <ng-template #body let-cat let-index="index">
             <tr>
               <td>{{ cat.name }}</td>
               <td style="alignment-baseline: central"><p-colorpicker [(ngModel)]="cat.color" [disabled]="true"></p-colorpicker></td>
@@ -27,13 +30,11 @@
                 <button class="icon-btn" title="Edit" (click)="editCategory(cat)">
                   Edit
                 </button>
-                <button class="icon-btn delete" title="Delete" (click)="deleteCategory(cat.id)">
-                  Delete
-                </button>
+                <p-button (click)="deleteCategory(cat.id)" label="Delete" severity="danger" [outlined]="true" />
               </td>
             </tr>
-          }
-        </table>
+          </ng-template>
+        </p-table>
       } @else {
         <div class="empty-state">
           <p>No categories found. Create a new category to get started!</p>
@@ -56,7 +57,7 @@
         </div>
         <div>
           <label for="categoryColor" class="font-semibold w-24">Category Color</label>
-          <p-colorPicker formControlName="color"></p-colorPicker>    <!--Got it from PRIMENG-->
+          <p-colorPicker appendTo="body" formControlName="color"></p-colorPicker>    <!--Got it from PRIMENG-->
         </div>
       </div>
       <br><br>

@@ -26,7 +26,7 @@ export class Dashboard {
     this.tasks = this.loadService.loadTasks();
     this.categories = this.loadService.loadCategories();
   }
- 
+
   // Getter methods to filter completed tasks
   protected get completedTasks() {
     return this.tasks.filter((task) => task.status === 'Completed');

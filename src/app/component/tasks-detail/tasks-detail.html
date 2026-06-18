@@ -1,3 +1,4 @@
+<p-confirmDialog />
 <div class="taskdetail-container">
   <div class="taskdetail-header">
     <div class="header-left">
@@ -5,9 +6,9 @@
       <p>View and manage task information</p>
     </div>
     <div class="header-right">
-      <button class="btn" (click)=back()>&#9664; Back</button>
+      <button class="btn" (click)=back()>Back</button>
       <button class="btn"  [routerLink]="['/tasks-edit', tasks.id]">Edit</button>
-      <button class="btn-del"  (click)=deleteTask()>Delete</button>
+      <p-button class="btn-del" (click)="deleteTask()" label="Delete" severity="danger" [outlined]="true" />
     </div>
   </div>
 

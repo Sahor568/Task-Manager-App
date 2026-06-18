@@ -9,6 +9,12 @@ import { LoadService } from '../../common/service/load.service';
 import { ToastService } from '../../common/service/toast.service';
 
 import { SelectModule } from 'primeng/select';
+import { Button } from 'primeng/button';
+import { ConfirmDialog } from 'primeng/confirmdialog';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ConfirmationService } from 'primeng/api';
+import { ColorPicker } from 'primeng/colorpicker';
+import { TableModule } from 'primeng/table';
 
 // It is an interface for the Status model
 interface Status {
@@ -19,11 +25,23 @@ interface Status {
 
 @Component({
   selector: 'app-tasks',
-  imports: [RouterLink, ReactiveFormsModule, SelectModule, FormsModule, CommonModule],
+  imports: [
+    RouterLink,
+    ReactiveFormsModule,
+    SelectModule,
+    FormsModule,
+    CommonModule,
+    Button,
+    ConfirmDialog,
+    ConfirmDialogModule,
+    TableModule,
+  ],
   templateUrl: './tasks.html',
   styleUrl: './tasks.scss',
+  providers: [ConfirmationService],
 })
 export class Tasks implements OnInit {
+  private confirmationService = inject(ConfirmationService);
   status!: Status[];
   categoryOptions: { name: string; value: string }[] = [];
 
@@ -54,12 +72,32 @@ export class Tasks implements OnInit {
 
   // To handle task deletion
   protected deleteTask(taskId: number): void {
-    const tasks = JSON.parse(localStorage.getItem('tasks') || '[]');
-    const updatedTasks = tasks.filter((t: any) => t.id !== taskId);
-    localStorage.setItem('tasks', JSON.stringify(updatedTasks));
-    this.loadService.loadTasks();
-    this.toastService.showToast('error', 'Alert', 'Task deleted successfully!'); // Show error toast message
-    this.tasks = this.loadService.loadTasks();
+    this.confirmationService.confirm({
+      message: 'Do you want to delete this category?',
+      header: 'Delete Category',
+      icon: 'pi pi-info-circle',
+      rejectLabel: 'Cancel',
+      rejectButtonProps: {
+        label: 'Cancel',
+        severity: 'secondary',
+        outlined: true,
+      },
+      acceptButtonProps: {
+        label: 'Delete',
+        severity: 'danger',
+      },
+
+      accept: () => {
+        this.toastService.showToast('error', 'Alert', 'Task deleted successfully!');
+        const tasks = JSON.parse(localStorage.getItem('tasks') || '[]');
+        const updatedTasks = tasks.filter((t: any) => t.id !== taskId);
+        localStorage.setItem('tasks', JSON.stringify(updatedTasks));
+        this.tasks = this.loadService.loadTasks();
+      },
+      reject: () => {
+        this.toastService.showToast('error', 'Rejected', 'You have cancelled task deletion.');
+      },
+    });
   }
 
   // To handle task searching

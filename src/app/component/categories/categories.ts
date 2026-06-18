@@ -14,6 +14,10 @@ import { ICategory } from '../../common/interface/iCategory';
 import { AuthService } from '../../common/service/auth.service';
 import { LoadService } from '../../common/service/load.service';
 import { ToastService } from '../../common/service/toast.service';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ConfirmationService } from 'primeng/api';
+import { TableModule } from 'primeng/table';
+
 
 @Component({
   selector: 'app-categories',
@@ -24,15 +28,49 @@ import { ToastService } from '../../common/service/toast.service';
     Dialog,
     InputText,
     ColorPickerModule,
+    ConfirmDialogModule,
+    TableModule,
   ],
   templateUrl: './categories.html',
   styleUrl: './categories.scss',
-  providers: [],
+  providers: [ConfirmationService],
 })
 export class Categories {
+  private confirmationService = inject(ConfirmationService);
+
+  // Function to delete a category
+  protected deleteCategory(id: number) {
+    this.confirmationService.confirm({
+      message: 'Do you want to delete this category?',
+      header: 'Delete Category',
+      icon: 'pi pi-info-circle',
+      rejectLabel: 'Cancel',
+      rejectButtonProps: {
+        label: 'Cancel',
+        severity: 'secondary',
+        outlined: true,
+      },
+      acceptButtonProps: {
+        label: 'Delete',
+        severity: 'danger',
+      },
+
+      accept: () => {
+        this.toastService.showToast('error', 'Alert', 'Category deleted successfully!');
+        const categories = JSON.parse(localStorage.getItem('categories')!);
+        const updatedCategories = categories.filter((c: any) => c.id !== id);
+        localStorage.setItem('categories', JSON.stringify(updatedCategories));
+        this.categories = updatedCategories;
+      },
+      reject: () => {
+        this.toastService.showToast('error', 'Rejected', 'You have cancelled category deletion.');
+      },
+    });
+  }
+
   categories: ICategory[] = [];
   isEditing = false; // In default, we are not editing any category
-  editingCategoryId: number | null  = null;
+  editingCategoryId: number | null = null;
   visible: boolean = false; // In default, the dialog is not visible
   color: ColorPickerModule | undefined;
 
@@ -84,22 +122,11 @@ export class Categories {
     this.visible = false;
   }
 
-
   // Function to handle editing a category
   protected editCategory(category: ICategory) {
     this.isEditing = true;
     this.editingCategoryId = category.id;
     this.categoryForm.setValue({ name: category.name, color: category.color }); // Set form values for editing
     this.visible = true;
-  }
-
-  // Function to handle deleting a category
-  protected deleteCategory(id: number): void {
-    const categories = JSON.parse(localStorage.getItem('categories') || '[]');
-    const updatedCategories = categories.filter((c: any) => c.id !== id);
-    localStorage.setItem('categories', JSON.stringify(updatedCategories));
-    this.toastService.showToast('error', 'Alert', 'Category deleted successfully!'); // Show error toast message
-
-    this.categories = updatedCategories;
   }
 }

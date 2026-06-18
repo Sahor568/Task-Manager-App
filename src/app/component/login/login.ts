@@ -29,7 +29,7 @@ export class Login {
   protected onSubmit() {
     const formData = this.loginForm.getRawValue();
 
-    const users = JSON.parse(localStorage.getItem('users') || '[]'); 
+    const users = JSON.parse(localStorage.getItem('users')!);
     const user = users.find(
       (u: any) => u.email === formData.email && u.password === formData.password,
     );

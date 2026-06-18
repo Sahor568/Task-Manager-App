@@ -166,3 +166,14 @@
   }
 }
 
+::ng-deep .datePicker{
+  .p-inputtext{
+    &:focus {
+      border: 1px solid black !important;
+    }
+  }
+
+  .p-datepicker-day-selected{
+    background: pink;
+  }
+}

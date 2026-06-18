@@ -26,27 +26,23 @@
       border-radius: 4px;
       cursor: pointer;
       font-size: 14px;
-      transition: 0.2s ease;
       gap: 16px;
+      margin-right: 10px;
 
       &:hover {
         background: #1f1f1f;
       }
     }
 
-    .btn-del {
-      background: red;
-      color: white;
-      border: 2px solid red;
-      padding: 12px 20px;
-      border-radius: 4px;
-      cursor: pointer;
-      font-size: 14px;
-      transition: 0.2s ease;
-      gap: 16px;
-
-      &:hover {
-        background: #a81f1f;
+    .btn-del{
+      ::ng-deep .p-button-outlined.p-button-danger {
+        border-color: #ddd;
+        color: red;
+        padding: 12px 20px;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 14px;
+        gap: 16px;
       }
     }
   }
